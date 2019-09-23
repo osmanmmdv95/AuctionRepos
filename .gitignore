@@ -8,7 +8,6 @@ project.lock.json
 .DS_Store
 *.pyc
 nupkg/
-vs/
 
 # Visual Studio Code
 .vscode
@@ -29,7 +28,6 @@ vs/
 [Rr]eleases/
 x64/
 x86/
-vs/
 build/
 bld/
 [Bb]in/
@@ -39,4 +37,5 @@ msbuild.log
 msbuild.err
 msbuild.wrn
 
-/AuctionRepos/.vs/AuctionRepos/v15/Server/sqlite3/db.lock
+
+.vs\AuctionRepos\v15\Server\sqlite3

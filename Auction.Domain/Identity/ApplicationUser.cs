@@ -7,6 +7,8 @@ namespace Auction.Domain.Identity
 {
     public class ApplicationUser : IdentityUser
     {
-        public int? NationalIdNumber { get; set; }
+        public long? NationalIdNumber { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }
