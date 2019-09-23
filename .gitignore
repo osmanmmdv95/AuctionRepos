@@ -38,4 +38,5 @@ msbuild.err
 msbuild.wrn
 
 
-.vs\AuctionRepos\v15\Server\sqlite3
+.vs/AuctionRepos/v15/Server/sqlite3
+.vs/
