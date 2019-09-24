@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Auction.Domain.Identity;
 using Auction.WebUI.ViewModels.Identity;
@@ -37,6 +38,7 @@ namespace Auction.WebUI.Controllers
                 // model dogruysa
                 // kullaniyi kontrol et var mi?
                 var existUser = await _userManager.FindByEmailAsync(model.Username);
+                
                 // yoksa hata don
                 if (existUser == null)
                 {
@@ -56,6 +58,10 @@ namespace Auction.WebUI.Controllers
 
                 if (!String.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                     return Redirect(returnUrl);
+
+                //LoginPartial'a Kullanıcının ad ve soyadını yazdırabilmek için ekledim!
+                var t = await _userManager.AddClaimAsync(existUser, new Claim("FullName", existUser.FirstName + " " + existUser.LastName));
+
 
                 return RedirectToAction("Index", "Home");
             }
@@ -119,5 +125,6 @@ namespace Auction.WebUI.Controllers
         {
             return View();
         }
+
     }
 }
