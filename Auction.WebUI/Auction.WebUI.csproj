@@ -21,6 +21,11 @@
   </ItemGroup>
 
 
+  <ItemGroup>
+    <Folder Include="Scripts\" />
+  </ItemGroup>
+
+
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="http://json.schemastore.org/appveyor" /></VisualStudio></ProjectExtensions>
 
 </Project>
