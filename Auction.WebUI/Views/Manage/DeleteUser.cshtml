@@ -1,0 +1,68 @@
+﻿@model Auction.WebUI.ViewModels.Manage.UserViewModel
+
+@{
+    ViewData["Title"] = "DeleteUser";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@if (!User.IsInRole("Admin"))
+{
+    <h1 class="text-danger"> @ViewBag.Message</h1>
+}
+else
+{
+    <h2>Kullanıcı Sil</h2>
+    <h3>Bu kişiyi silmek istediğinize emin misiniz?</h3>
+}
+
+<div>
+
+    <hr />
+    <dl class="row">
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt class="col-sm-2">
+            Kullanicinin Rolleri
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.UserRoles
+        </dd>
+    </dl>
+    @if (User.IsInRole("Admin"))
+    {
+        <form asp-action="DeleteUser">
+            @Html.AntiForgeryToken()
+            <input type="submit" value="Sil" class="btn btn-danger" /> |
+            <a asp-action="Index">Listeye Dön</a>
+        </form>
+    }
+    else
+    {
+        <form asp-action="DeleteUser">
+            @Html.AntiForgeryToken()
+            <input type="submit" value="Sil" class="btn btn-danger" disabled/> |
+            <a asp-action="Index">Listeye Dön</a>
+        </form>
+    }
+
+</div>

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Auction.WebUI.Controllers
 {
+    [Authorize(Roles = "Admin,Editor")]
     public class AdminController : Controller
     {
         [Authorize]

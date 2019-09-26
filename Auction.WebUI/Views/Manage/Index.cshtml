@@ -23,9 +23,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Email)
             </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.FullName)
-                </th>*@
+
             <th>İşlemler</th>
         </tr>
     </thead>
@@ -43,13 +41,15 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.FullName)
-                    </td>*@
+
+
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    <a asp-controller="Manage" asp-action="AssignRole" class="btn btn-sm btn-success" asp-route-id="@item.Id">Rol ata</a>
+                    <a asp-controller="Manage" asp-action="RevokeRole" class="btn btn-sm btn-warning" asp-route-id="@item.Id">Rolden çıkar</a>
+                    <a asp-controller="Manage" asp-action="UserDetail" class="btn btn-sm btn-info" asp-route-id="@item.Id">Detay</a>
+                    <a asp-controller="Manage" asp-action="DeleteUser" class="btn btn-sm btn-danger" asp-route-id="@item.Id">Sil</a>
+
+
                 </td>
             </tr>
         }

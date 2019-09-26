@@ -6,13 +6,19 @@ using System.Threading.Tasks;
 using Auction.Domain.Identity;
 using Auction.Domain.RoleClaims;
 using Auction.WebUI.ViewModels.Manage;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Expressions;
 using Microsoft.IdentityModel.Xml;
+using Org.BouncyCastle.Bcpg;
 
 namespace Auction.WebUI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ManageController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -29,8 +35,10 @@ namespace Auction.WebUI.Controllers
             _signInManager = signInManager;
         }
 
+        //USER TASKS
         public IActionResult Index()
         {
+
 
             List<UserViewModel> users = _userManager.Users
                 .Select(x => new UserViewModel
@@ -47,8 +55,94 @@ namespace Auction.WebUI.Controllers
 
         }
 
+        [Route("Users/Detail/{id}")]
+        public async Task<IActionResult> UserDetail(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            UserViewModel model = new UserViewModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+                FirstName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(user.FirstName),
+                LastName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(user.LastName),
+                FullName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(user.FirstName + " " + user.LastName)
+            };
+            ViewBag.UserRoles = "Role sahip degil";
+            var userRoles = await _userManager.GetRolesAsync(user);
+            if (userRoles.Any())
+            {
+                ViewBag.UserRoles = string.Join(",", userRoles);
 
-        // ROL İŞLEMLERİ
+            }
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            if (!User.IsInRole("Admin"))
+
+            {
+                ViewBag.Message = "Sadece Admin yetkisi olan kişiler kullanıcı silebilir!";
+            }
+
+            var user = await _userManager.FindByIdAsync(id);
+            UserViewModel model = new UserViewModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+                FirstName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(user.FirstName),
+                LastName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(user.LastName),
+                FullName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(user.FirstName + " " + user.LastName)
+            };
+            ViewBag.UserRoles = "Role sahip degil";
+            var userRoles = await _userManager.GetRolesAsync(user);
+            if (userRoles.Any())
+            {
+                ViewBag.UserRoles = string.Join(",", userRoles);
+
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteUser(UserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByIdAsync(model.Id);
+
+                if (!User.IsInRole("Admin"))
+                {
+                    ViewBag.Message = "Sadece Admin yetkisi olan kişiler kullanıcı silebilir!";
+
+                    UserViewModel errorModel = new UserViewModel
+                    {
+                        Id = user.Id,
+                        Email = user.Email,
+                        FirstName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(user.FirstName),
+                        LastName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(user.LastName),
+                        FullName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(user.FirstName + " " + user.LastName)
+                    };
+                    return View(errorModel);
+                }
+                else
+                {
+                    var deleteUser = await _userManager.DeleteAsync(user);
+                    if (deleteUser.Succeeded)
+                    {
+                        return RedirectToAction("Index", "Manage");
+                    }
+                    ModelState.AddModelError(string.Empty, "Bir hata oluştu, lütfen tekrar deneyiniz!");
+                }
+            }
+
+            return View(model);
+        }
+
+        // ROLE CRUD TASKS
 
         [Route("Roles")]
         public IActionResult Roles()
@@ -217,7 +311,7 @@ namespace Auction.WebUI.Controllers
 
             if (detailRole == null)
             {
-                return RedirectToAction("UnknownError","Error");
+                return RedirectToAction("UnknownError", "Error");
             }
 
             RoleViewModel model = new RoleViewModel
@@ -238,9 +332,98 @@ namespace Auction.WebUI.Controllers
             return View(model);
         }
 
-        
+        // ROLE ASSIGN TASKS
+        [Route("/Roles/Assign/{id}")]
+        public async Task<IActionResult> AssignRole(string id)
+        {
+            List<SelectListItem> roleList = _roleManager.Roles.Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.Id,
+                Selected = false
+            }).ToList();
 
-        //Sistem Rolü mü? Değil mi? Kontrolünün yapıldığı method
+            AssignRoleViewModel model = new AssignRoleViewModel
+            {
+                UserId = id,
+                RoleList = roleList
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("/Roles/Assign/{id}")]
+        public async Task<IActionResult> AssignRole(AssignRoleViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByIdAsync(model.UserId);
+                var role = await _roleManager.FindByIdAsync(model.RoleId);
+                var assignRole = await _userManager.AddToRoleAsync(user, role.Name);
+                if (assignRole.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Bir hata oluştu, tekrar deneyiniz!");
+                    var roleAssignationErrors = assignRole.Errors.Select(x => x.Description);
+                    ModelState.AddModelError(string.Empty,
+                        string.Join(", ", roleAssignationErrors));
+                }
+
+            }
+
+            return View(model);
+        }
+
+        [Route("Roles/Revoke/{id}")]
+        public async Task<IActionResult> RevokeRole(string id)
+        {
+            AssignRoleViewModel model = new AssignRoleViewModel();
+            model.UserId = id;
+            var user = await _userManager.FindByIdAsync(id);
+            var userRolesList = await _userManager.GetRolesAsync(user);
+            if (userRolesList.Any())
+            {
+                var userRoles = _roleManager.Roles.Where(x => userRolesList.Contains(x.Name)).ToList();
+                model.RoleList = userRoles.Select(x => new SelectListItem
+                {
+                    Selected = false,
+                    Value = x.Id,
+                    Text = x.Name
+
+                }).ToList();
+            }
+            else
+            {
+                model.RoleList = new List<SelectListItem>();
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [Route("Roles/Revoke/{id}")]
+        public async Task<IActionResult> RevokeRole(AssignRoleViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByIdAsync(model.UserId);
+                var role = await _roleManager.FindByIdAsync(model.RoleId);
+                var result = await _userManager.RemoveFromRoleAsync(user, role.Name);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("UserDetail", new { id = model.UserId });
+                }
+                ModelState.AddModelError(String.Empty, "Bir hata oluştu, tekrar deneyiniz!");
+            }
+
+            return View(model);
+        }
+
+        //cHECK, IS IT A SYSTEM ROLE OR NOT
 
         private async Task<bool> CheckRoleIsEditable(string roleId)
         {

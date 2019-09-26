@@ -296,15 +296,18 @@
                                 <li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
                             </ul>*@
                     </li>
-                    <li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>
+                            <a asp-controller="Manage" asp-action="Index">
+                                <i class="fa fa-user"></i> <span>Kullanıcı İşlemleri</span>
+                                <span class="pull-right-container">
+                                    <small class="label pull-right bg-green">new</small>
+                                </span>
+                            </a>
+                        </li>
+                    }
 
-                        <a asp-controller="Manage" asp-action="Index">
-                            <i class="fa fa-user"></i> <span>Kullanıcılar</span>
-                            <span class="pull-right-container">
-                                <small class="label pull-right bg-green">new</small>
-                            </span>
-                        </a>
-                    </li>
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-files-o"></i>

@@ -33,43 +33,41 @@
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                    <input type="password" asp-for="Password" class="form-control" placeholder="Password">
+                    <input type="password" asp-for="Password" class="form-control" placeholder="Şifre">
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <div class="row">
                     <div class="col-xs-8">
                         <div class="checkbox icheck">
                             <label>
-                                <input type="checkbox" asp-for="RememberMe"> Remember Me
+                                <input type="checkbox" asp-for="RememberMe"> Beni Hatırla
                             </label>
                         </div>
                     </div>
                     <!-- /.col -->
                     <div class="col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">Giriş</button>
                     </div>
                     <!-- /.col -->
                 </div>
             </form>
             <div class="social-auth-links text-center">
-                <p>- OR -</p>
+                <p>- VEYA -</p>
                 <a href="#" class="btn btn-block btn-social btn-facebook btn-flat">
-                    <i class="fa fa-facebook"></i> Sign in using
-                    Facebook
+                    <i class="fa fa-facebook"></i> Facebook ile giriş yap
                 </a>
                 <a href="#" class="btn btn-block btn-social btn-google btn-flat">
-                    <i class="fa fa-google-plus"></i> Sign in using
-                    Google+
+                    <i class="fa fa-google-plus"></i> Google+ ile giriş yap
                 </a>
             </div>
             <!-- /.social-auth-links -->
-            <a href="#">I forgot my password</a><br>
-            <a asp-controller="Account" asp-action="Register" class="text-center">Register a new membership</a>
+            <a href="#">Şifremi unuttum</a><br>
+            <a asp-controller="Account" asp-action="Register" class="text-center">Yeni bir hesap oluştur</a>
         </div>
         <!-- /.login-box-body -->
     </div>
     <!-- /.login-box -->
-<!-- jQuery 3 -->
+    <!-- jQuery 3 -->
 
     <script src="~/js/jquery.min.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
