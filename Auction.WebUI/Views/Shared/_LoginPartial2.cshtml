@@ -1,10 +1,9 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Identity
 @using Auction.Domain.Identity
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-
-
 
 @if (SignInManager.IsSignedIn(User))
 {
@@ -15,18 +14,41 @@
             <!-- The user image in the navbar-->
             <img src="~/img/avatar5.png" class="user-image" alt="User Image">
             <!-- hidden-xs hides the username on small devices so only the image appears. -->
-            <span class="hidden-xs"> @User.FullName().ToUpperInvariant()</span>
+            @*<span class="hidden-xs"> @User.FullName().ToUpperInvariant()</span>*@
+            @*<span class="hidden-xs"> @UserManager.GetUserName(User)</span>*@
+            @if (@TempData["FullName"] == null)
+            {
+
+                <span class="hidden-xs"> @CultureInfo.CurrentCulture.TextInfo.ToTitleCase(@User.FullName())</span>
+            }
+            else
+            {
+                <span class="hidden-xs"> @TempData["FullName"]</span>
+            }
+
+
 
         </a>
         <ul class="dropdown-menu">
             <!-- The user image in the menu -->
             <li class="user-header">
                 <img src="~/img/avatar5.png" class="img-circle" alt="User Image">
-                <p>
-                    @User.FullName().ToUpperInvariant()
 
-                    <small> Hoş Geldiniz </small>
-                </p>
+                @if (@TempData["FullName"] == null)
+                {
+                    <p>
+                        @CultureInfo.CurrentCulture.TextInfo.ToTitleCase(@User.FullName())
+                        <small> Hoş Geldiniz </small>
+                    </p>
+
+                }
+                else
+                {
+                    <p>
+                        @TempData["FullName"]
+                        <small> Hoş Geldiniz </small>
+                    </p>
+                }
 
 
             </li>

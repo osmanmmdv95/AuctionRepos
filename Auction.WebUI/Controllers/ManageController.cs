@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Expressions;
 using Microsoft.IdentityModel.Xml;
 using Org.BouncyCastle.Bcpg;
+using Renci.SshNet;
 
 namespace Auction.WebUI.Controllers
 {
@@ -38,8 +39,6 @@ namespace Auction.WebUI.Controllers
         //USER TASKS
         public IActionResult Index()
         {
-
-
             List<UserViewModel> users = _userManager.Users
                 .Select(x => new UserViewModel
                 {
@@ -78,6 +77,7 @@ namespace Auction.WebUI.Controllers
             return View(model);
         }
 
+        [Route("Users/Delete/{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {
             if (!User.IsInRole("Admin"))
@@ -108,6 +108,7 @@ namespace Auction.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Users/Delete/{id}")]
         public async Task<IActionResult> DeleteUser(UserViewModel model)
         {
             if (ModelState.IsValid)
@@ -137,6 +138,54 @@ namespace Auction.WebUI.Controllers
                     }
                     ModelState.AddModelError(string.Empty, "Bir hata oluştu, lütfen tekrar deneyiniz!");
                 }
+            }
+
+            return View(model);
+        }
+
+
+        [Route("Users/Edit/{id}")]
+        public async Task<IActionResult> EditUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            UserViewModel model = new UserViewModel
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("Users/Edit/{id}")]
+        public async Task<IActionResult> EditUser(UserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByIdAsync(model.Id);
+
+                if (user.Email != model.Email)
+                {
+                    return RedirectToAction("UnknownError", "Error");
+
+                }
+
+                user.Email = model.Email;
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+
+                var updateUser = await _userManager.UpdateAsync(user);
+
+                if (updateUser.Succeeded)
+                {
+                    return RedirectToAction("Index", "Manage");
+                }
+                ModelState.AddModelError(string.Empty, "Bir hata oluştu, tekrar deneyin!");
+
             }
 
             return View(model);

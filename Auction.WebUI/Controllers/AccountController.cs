@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -38,7 +39,10 @@ namespace Auction.WebUI.Controllers
                 // model dogruysa
                 // kullaniyi kontrol et var mi?
                 var existUser = await _userManager.FindByEmailAsync(model.Username);
-                
+
+                //LoginPartial'a Kullanıcının ad ve soyadını yazdırabilmek için ekledim!
+                TempData["FullName"] = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(existUser.FirstName + " " + existUser.LastName);
+
                 // yoksa hata don
                 if (existUser == null)
                 {
@@ -78,6 +82,9 @@ namespace Auction.WebUI.Controllers
             // gelen modeli valide et
             if (ModelState.IsValid)
             {
+
+                //LoginPartial'a Kullanıcının ad ve soyadını yazdırabilmek için ekledim!
+                TempData["FullName"] = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(model.FirstName + " " + model.LastName);
                 // validse kaydet
 
                 // ApplicationUser olustur
