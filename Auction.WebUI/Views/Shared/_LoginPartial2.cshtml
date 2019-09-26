@@ -146,18 +146,25 @@
                 {
                     <div class="pull-left">
                         <form asp-area="" asp-controller="Admin" asp-action="Index">
-                            <button type="submit" class="btn btn-default btn-success">Yönetim</button>
+                            <button type="submit" class="btn btn-flat btn-success">Yönetim</button>
                         </form>
                     </div>
                 }
 
                 <div class="pull-right">
                     <form asp-area="" asp-controller="Account" asp-action="Logout">
-                        <button type="submit" class="btn btn-default btn-warning">Çıkış</button>
+                        <button type="submit" class="btn btn-danger btn-flat">Çıkış</button>
                     </form>
                 </div>
-                <div class="pull-right">
-                    <a href="#" class="btn btn-default btn-info">Profil</a>
+                <div class="@String.Concat("", User.IsInRole("Admin") ? "text-center" : "pull-left")">
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="Admin" asp-action="AdminProfile" class="btn btn-flat btn-info">Profil</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Home" asp-action="Profile" class="btn btn-flat btn-info">Profil</a>
+                    }
                 </div>
             </li>
 
@@ -166,6 +173,6 @@
 }
 else
 {
-    <li><a asp-controller="Account" asp-action="Login" >Giriş</a></li>
-    <li><a asp-controller="Account" asp-action="Register" >Kayıt Ol</a></li>
+    <li><a asp-controller="Account" asp-action="Login">Giriş</a></li>
+    <li><a asp-controller="Account" asp-action="Register">Kayıt Ol</a></li>
 }

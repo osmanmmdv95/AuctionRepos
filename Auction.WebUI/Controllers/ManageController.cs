@@ -38,8 +38,6 @@ namespace Auction.WebUI.Controllers
         //USER TASKS
         public IActionResult Index()
         {
-
-
             List<UserViewModel> users = _userManager.Users
                 .Select(x => new UserViewModel
                 {

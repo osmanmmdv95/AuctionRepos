@@ -5,44 +5,51 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Roles</h2>
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title">
+            Roller
+        </h3>
 
-<p>
-    <a asp-action="CreateRole" class="btn btn-primary">Yeni Rol Ekle</a>
+        <div class="box-tools pull-right">
+            <a asp-action="CreateRole" class="btn btn-primary btn-flat btn-xs">Yeni Rol Ekle</a>
+        </div>
+    </div>
+    <div class="box-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
 
-</p>
-<table class="table">
-    <thead>
-        <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    @*<th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>*@
+                    <th class="">İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
 
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.Id)
-                </th>*@
-            <th class="">İşlemler</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>*@
+                        <td>
+                            <a asp-controller="Manage" asp-action="EditRole" asp-route-id="@item.Id" class="btn btn-sm btn-success btn-xs btn-flat">Düzenle</a>
+                            <a asp-controller="Manage" asp-action="RoleDetail" asp-route-id="@item.Id" class="btn btn-sm btn-info btn-xs btn-flat">Detay</a>
+                            <a asp-controller="Manage" asp-action="DeleteRole" asp-route-id="@item.Id" class="btn btn-sm btn-danger btn-xs btn-flat">Sil</a>
+                        </td>
+                    </tr>
+                }
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>*@
-                <td>
-                    <a asp-controller="Manage" asp-action="EditRole" asp-route-id="@item.Id" class="btn btn-sm btn-success">Düzenle</a>
-                    <a asp-controller="Manage" asp-action="RoleDetail" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detay</a>
-                    <a asp-controller="Manage" asp-action="DeleteRole" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Sil</a>
-                </td>
-            </tr>
-        }
-
-    </tbody>
-</table>
-<a asp-action="Index">Kullanıcı Listesine Dön</a>
+            </tbody>
+        </table>
+        <a asp-action="Index">Kullanıcı Listesine Dön</a>
+    </div>
+</div>
