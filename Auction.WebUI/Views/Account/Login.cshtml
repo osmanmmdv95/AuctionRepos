@@ -22,11 +22,11 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="../../index2.html"><b>Admin</b>LTE</a>
+            <a asp-controller="Home" asp-action="Index"><b>Admin</b>LTE</a>
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">
-            <p class="login-box-msg">Sign in to start your session</p>
+            <p class="login-box-msg">Oturum Aç</p>
             <form asp-controller="Account" asp-action="Login" method="post">
                 <div class="form-group has-feedback">
                     <input type="email" asp-for="Username" class="form-control" placeholder="Email">

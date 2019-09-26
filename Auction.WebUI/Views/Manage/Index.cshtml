@@ -11,58 +11,61 @@
 
         <div class="box-tools pull-right">
             @*<button type="button" class="btn btn-box-tool" data-widget="collapse">
-                <i class="fa fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>*@
+                    <i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>*@
             <a asp-action="Create" class="btn btn-primary btn-flat btn-xs">Yeni Kullanıcı</a>
             <a asp-action="Roles" class="btn btn-primary btn-flat btn-xs">Rolleri Yönet</a>
         </div>
 
-
     </div>
+</div>
 
-    <div class="box-body">
-        <table id="example1" class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.FirstName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.LastName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Email)
-                    </th>
+<div class="box-body">
+    <table id="example1" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
 
-                    <th>İşlemler</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FirstName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.LastName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-
-
-                <td>
-                    <a asp-controller="Manage" asp-action="AssignRole" class="btn btn-sm btn-success" asp-route-id="@item.Id">Rol ata</a>
-                    <a asp-controller="Manage" asp-action="RevokeRole" class="btn btn-sm btn-warning" asp-route-id="@item.Id">Rolden çıkar</a>
-                    <a asp-controller="Manage" asp-action="UserDetail" class="btn btn-sm btn-info" asp-route-id="@item.Id">Detay</a>
-                    <a asp-controller="Manage" asp-action="DeleteUser" class="btn btn-sm btn-danger" asp-route-id="@item.Id">Sil</a>
-
-
-                </td>
+                <th>İşlemler</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+
+
+                    <td>
+                        <a asp-controller="Manage" asp-action="AssignRole" class="btn btn-sm btn-success" asp-route-id="@item.Id">Rol ata</a>
+                        <a asp-controller="Manage" asp-action="RevokeRole" class="btn btn-sm btn-warning" asp-route-id="@item.Id">Rolden çıkar</a>
+                        <a asp-controller="Manage" asp-action="UserDetail" class="btn btn-sm btn-info" asp-route-id="@item.Id">Detay</a>
+                        <a asp-controller="Manage" asp-action="DeleteUser" class="btn btn-sm btn-danger" asp-route-id="@item.Id">Sil</a>
+
+
+                    </td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+</div>

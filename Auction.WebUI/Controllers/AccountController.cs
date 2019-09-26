@@ -41,7 +41,7 @@ namespace Auction.WebUI.Controllers
                 var existUser = await _userManager.FindByEmailAsync(model.Username);
 
                 //LoginPartial'a Kullanıcının ad ve soyadını yazdırabilmek için ekledim!
-                TempData["FullName"] = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(existUser.FirstName + " " + existUser.LastName);
+                
 
                 // yoksa hata don
                 if (existUser == null)
@@ -65,7 +65,7 @@ namespace Auction.WebUI.Controllers
 
                 //LoginPartial'a Kullanıcının ad ve soyadını yazdırabilmek için ekledim!
                 var t = await _userManager.AddClaimAsync(existUser, new Claim("FullName", existUser.FirstName + " " + existUser.LastName));
-
+                TempData["FullName"] = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(existUser.FirstName + " " + existUser.LastName);
 
                 return RedirectToAction("Index", "Home");
             }
