@@ -22,7 +22,7 @@
             <nav class="navbar navbar-static-top">
                 <div class="container">
                     <div class="navbar-header">
-                        <a asp-controller="Admin" asp-action="Index" class="navbar-brand"><b>Admin</b>LTE</a>
+                        <a asp-controller="Home" asp-action="Index" class="navbar-brand"><b>Admin</b>LTE</a>
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
                             <i class="fa fa-bars"></i>
                         </button>
@@ -67,17 +67,17 @@
         <div class="content-wrapper">
             <div class="container">
                 <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <h1>
-                        Top Navigation
-                        <small>Example 2.0</small>
-                    </h1>
-                    <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="#">Layout</a></li>
-                        <li class="active">Top Navigation</li>
-                    </ol>
-                </section>
+                @*<section class="content-header">
+                        <h1>
+                            Top Navigation
+                            <small>Example 2.0</small>
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                            <li><a href="#">Layout</a></li>
+                            <li class="active">Top Navigation</li>
+                        </ol>
+                    </section>*@
                 <!-- Main content -->
                 <section class="content">
                     @RenderBody()
@@ -99,7 +99,7 @@
             <!-- /.container -->
         </footer>
     </div>
-    
+
     <script src="~/js/jquery.min.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
     <script src="~/js/jquery.slimscroll.min.js"></script>
@@ -107,5 +107,6 @@
     <script src="~/js/adminlte.min.js"></script>
     <script src="~/js/demo.js"></script>
 
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
