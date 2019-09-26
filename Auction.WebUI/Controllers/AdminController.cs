@@ -15,5 +15,10 @@ namespace Auction.WebUI.Controllers
         {
             return View();
         }
+
+        public IActionResult AdminProfile()
+        {
+            return View();
+        }
     }
 }

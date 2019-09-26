@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Auction.WebUI",
+    "\\Auction.WebUI\\Views",
+    "\\Auction.WebUI\\Views\\Account",
+    "\\Auction.WebUI\\Views\\Shared"
   ],
-  "SelectedNode": "\\AuctionRepos.sln",
+  "SelectedNode": "\\Auction.WebUI\\Views\\Shared\\_Layout.cshtml",
   "PreviewInSolutionExplorer": false
 }
