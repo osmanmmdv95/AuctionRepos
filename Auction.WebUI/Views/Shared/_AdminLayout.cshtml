@@ -52,7 +52,14 @@
                         <img src="~/img/avatar5.png" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p>@User.FullName().ToUpperInvariant()</p>
+                        @if (@TempData["FullName"] == null)
+                        {
+                            <p>@CultureInfo.CurrentCulture.TextInfo.ToTitleCase(@User.FullName())</p>
+                        }
+                        else
+                        {
+                            <p>@CultureInfo.CurrentCulture.TextInfo.ToTitleCase(@TempData["FullName"].ToString()) </p>
+                        }
                         <a asp-controller="Home" asp-action="Index"><i class="fa fa-circle text-success"></i> Online</a>
                     </div>
                 </div>
