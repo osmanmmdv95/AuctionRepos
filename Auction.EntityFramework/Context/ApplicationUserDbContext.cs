@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Auction.Domain.Category;
 using Auction.Domain.Identity;
+using Auction.Domain.Product;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,8 +16,13 @@ namespace Auction.EntityFramework.Context
 
         }
 
-        /*
-         DBSet'ler buraya
-         */
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<SubCategory> SubCategories { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductCity> ProductCities { get; set; }
+
+        //public DbSet<ProductDetails> ProductDetails { get; set; }
+
     }
 }

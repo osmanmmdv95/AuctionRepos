@@ -13,4 +13,8 @@
     <ProjectReference Include="..\Auction.EntityFramework\Auction.EntityFramework.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ProductServices\Dtos\" />
+  </ItemGroup>
+
 </Project>
