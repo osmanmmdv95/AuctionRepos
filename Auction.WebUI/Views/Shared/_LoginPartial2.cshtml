@@ -1,10 +1,4 @@
-﻿@using System.Globalization
-@using Microsoft.AspNetCore.Identity
-@using Auction.Domain.Identity
-
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
-
+﻿
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="dropdown messages-menu">
@@ -179,8 +173,8 @@
                         <button type="submit" class="btn btn-danger btn-flat">Çıkış</button>
                     </form>
                 </div>
-                <div class="@String.Concat("", User.IsInRole("Admin") ? "text-center" : "pull-left")">
-                    @if (User.IsInRole("Admin"))
+                <div class="@String.Concat("", User.IsInRole("Admin") || User.IsInRole("Editor") ? "text-center" : "pull-left")">
+                    @if (User.IsInRole("Admin") || User.IsInRole("Editor"))
                     {
                         <a asp-area="Admin" asp-controller="Admin" asp-action="AdminProfile" class="btn btn-flat btn-info">Profil</a>
                     }

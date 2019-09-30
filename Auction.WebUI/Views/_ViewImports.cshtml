@@ -1,4 +1,10 @@
 ﻿@using Auction.WebUI
 @using Auction.WebUI.Models
 @using Auction.WebUI.ViewModels.Identity
+@using System.Globalization
+@using Microsoft.AspNetCore.Identity
+@using Auction.Domain.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
