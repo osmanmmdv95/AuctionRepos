@@ -6,12 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Auction.WebUI.Controllers
 {
+    [Area("Error")]
+    
     public class ErrorController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        [Route("/Error/UnknownError")]
         public IActionResult UnknownError()
         {
             return View();

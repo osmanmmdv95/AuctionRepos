@@ -17,9 +17,10 @@ using Microsoft.IdentityModel.Xml;
 using Org.BouncyCastle.Bcpg;
 using Renci.SshNet;
 
-namespace Auction.WebUI.Controllers
+namespace Auction.WebUI.Areas.Manage.Controllers
 {
     [Authorize(Roles = "Admin")]
+    [Area("Manage")]
     public class ManageController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

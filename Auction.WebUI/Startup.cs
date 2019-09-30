@@ -2,8 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Auction.Application.BrandServices;
+using Auction.Application.CategoryServices;
+using Auction.Application.Shared;
+using Auction.Application.SubCategoryServices;
+using Auction.Application.SubCategoryServices.Dtos;
 using Auction.Domain.Identity;
 using Auction.EntityFramework.Context;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -34,10 +40,35 @@ namespace Auction.WebUI
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+
+            /**********************CONNECTION STRING*****************************/
             services.AddDbContext<ApplicationUserDbContext>(options =>
                 options.UseMySql(
                     Configuration.GetConnectionString("AuctionConnection")
                 ));
+            /**********************CONNECTION STRING*****************************/
+
+
+
+            /**********************SERVICE SCOPS*****************************/
+            services.AddScoped<ICategoryservice, CategoryService>();
+            services.AddScoped<ISubCategoryService, SubCategoryService>();
+            services.AddScoped<IBrandService, BrandService>();
+            /**********************sERVICE SCOPS*****************************/
+
+
+
+            /************************MAPPER*****************************/
+            MapperConfiguration mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AutoMapperProfile());
+            });
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+            /****************MAPPER*****************************/
+
+
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
            .AddEntityFrameworkStores<ApplicationUserDbContext>();
@@ -82,6 +113,14 @@ namespace Auction.WebUI
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "Manage",
+                    template: "{area:exists}/{controller=Manage}/{action=Index}/{id?}"
+                );
+                routes.MapRoute(
+                    name: "Admin",
+                    template: "{area:exists}/{controller=Admin}/{action=Index}/{id?}"
+                );
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

@@ -86,7 +86,7 @@
                     @if (User.IsInRole("Admin"))
                     {
                         <li>
-                            <a asp-controller="Manage" asp-action="Index">
+                            <a asp-area="Manage" asp-controller="Manage" asp-action="Index">
                                 <i class="fa fa-user"></i> <span>Kullanıcı İşlemleri</span>
                                 <span class="pull-right-container">
                                     <small class="label pull-right bg-green">new</small>

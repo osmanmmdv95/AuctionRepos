@@ -9,9 +9,10 @@ using Auction.WebUI.ViewModels.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Auction.WebUI.Controllers
+namespace Auction.WebUI.Areas.Account.Controllers
 {
-    public class AccountController : Controller
+    [Area("Account")]
+   public class AccountController : Controller
     {
         // Kullanici kaydetmek icin veya kullanici bilgilerinde degisiklik yapmak icin kullanilan servis.
         private readonly UserManager<ApplicationUser> _userManager;
@@ -25,12 +26,15 @@ namespace Auction.WebUI.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
+        [Route("/Account/Login")]
         public IActionResult Login(string returnUrl = null)
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
         [HttpPost]
+        [Route("/Account/Login")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
             // gelen modeli dogrula
@@ -72,11 +76,16 @@ namespace Auction.WebUI.Controllers
             // basarili degilse hata don
             return View(model);
         }
+        [Route("/Account/Register")]
+
         public IActionResult Register()
         {
             return View();
         }
         [HttpPost]
+        [Route("/Account/Register")]
+        [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             // gelen modeli valide et

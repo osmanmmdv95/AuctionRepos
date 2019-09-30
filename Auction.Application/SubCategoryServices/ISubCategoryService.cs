@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Auction.Application.CategoryServices.CategoryViewModels;
+using Auction.Application.CategoryServices.Dtos;
 using Auction.Application.SubCategoryServices.Dtos;
 
 namespace Auction.Application.SubCategoryServices

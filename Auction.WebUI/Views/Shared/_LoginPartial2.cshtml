@@ -168,21 +168,21 @@
                 @if (User.IsInRole("Admin") || User.IsInRole("Editor"))
                 {
                     <div class="pull-left">
-                        <form asp-area="" asp-controller="Admin" asp-action="Index">
+                        <form asp-area="Admin" asp-controller="Admin" asp-action="Index">
                             <button type="submit" class="btn btn-flat btn-success">Yönetim</button>
                         </form>
                     </div>
                 }
 
                 <div class="pull-right">
-                    <form asp-area="" asp-controller="Account" asp-action="Logout">
+                    <form asp-area="Account" asp-controller="Account" asp-action="Logout">
                         <button type="submit" class="btn btn-danger btn-flat">Çıkış</button>
                     </form>
                 </div>
                 <div class="@String.Concat("", User.IsInRole("Admin") ? "text-center" : "pull-left")">
                     @if (User.IsInRole("Admin"))
                     {
-                        <a asp-controller="Admin" asp-action="AdminProfile" class="btn btn-flat btn-info">Profil</a>
+                        <a asp-area="Admin" asp-controller="Admin" asp-action="AdminProfile" class="btn btn-flat btn-info">Profil</a>
                     }
                     else
                     {
@@ -196,6 +196,6 @@
 }
 else
 {
-    <li><a asp-controller="Account" asp-action="Login">Giriş</a></li>
-    <li><a asp-controller="Account" asp-action="Register">Kayıt Ol</a></li>
+    <li><a asp-area="Account" asp-controller="Account" asp-action="Login">Giriş</a></li>
+    <li><a asp-area="Account" asp-controller="Account" asp-action="Register">Kayıt Ol</a></li>
 }
