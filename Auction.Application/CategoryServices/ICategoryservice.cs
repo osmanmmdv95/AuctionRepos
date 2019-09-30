@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Auction.Application.CategoryServices.Dtos;
 
-namespace Auction.Application.CategoryServices
+namespace Auction.Application
 {
     public interface ICategoryservice
     {

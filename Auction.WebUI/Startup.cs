@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Auction.Application;
 using Auction.Application.BrandServices;
 using Auction.Application.CategoryServices;
 using Auction.Application.Shared;
@@ -120,6 +121,10 @@ namespace Auction.WebUI
                 routes.MapRoute(
                     name: "Admin",
                     template: "{area:exists}/{controller=Admin}/{action=Index}/{id?}"
+                );
+                routes.MapRoute(
+                    name: "Category",
+                    template: "{area:exists}/{controller=Category}/{action=Index}/{id?}"
                 );
                 routes.MapRoute(
                     name: "default",

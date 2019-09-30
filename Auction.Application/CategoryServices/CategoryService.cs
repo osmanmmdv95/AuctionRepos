@@ -33,22 +33,11 @@ namespace Auction.Application.CategoryServices
             try
             {
                 Category category = await _context.Categories.FindAsync(Id);
-                CategoryDto dto = new CategoryDto
-                {
-                    CreatedBy = category.CreatedBy,
-                    CreatedById = category.CreatedById,
-                    CreatedDate = category.CreatedDate,
-                    Id = category.Id,
-                    ModifiedBy = category.ModifiedBy,
-                    ModifiedById = category.ModifiedById,
-                    ModifiedDate = category.ModifiedDate,
-                    CategoryName = category.CategoryName,
-                    CategoryUrlName = category.CategoryUrlName
+                CategoryDto mapCategory = _mapper.Map<CategoryDto>(category);
 
-                };
                 return new ApplicationResult<CategoryDto>
                 {
-                    Result = dto,
+                    Result = mapCategory,
                     Succeeded = true
                 };
             }
@@ -62,36 +51,19 @@ namespace Auction.Application.CategoryServices
                 };
             }
 
-
         }
 
         public async Task<ApplicationResult<List<CategoryDto>>> GetAll()
         {
             try
             {
-                //List<Category> CategoryList = await _context.Categories.ToListAsync();
-                //List<CategoryDto> mapCategory = _mapper.Map<List<CategoryDto>>(CategoryList);
-
-                List<CategoryDto> categoryList = await _context.Categories.Select(category => new CategoryDto
-                {
-                    CreatedBy = category.CreatedBy,
-                    CreatedById = category.CreatedById,
-                    CreatedDate = category.CreatedDate,
-                    Id = category.Id,
-                    ModifiedBy = category.ModifiedBy,
-                    ModifiedById = category.ModifiedById,
-                    ModifiedDate = category.ModifiedDate,
-                    CategoryName = category.CategoryName,
-                    CategoryUrlName = category.CategoryUrlName,
-
-                    
-
-            }).ToListAsync();
+                List<Category> categoryList = await _context.Categories.ToListAsync();
+                List<CategoryDto> mapCategory = _mapper.Map<List<CategoryDto>>(categoryList);
 
                 return new ApplicationResult<List<CategoryDto>>
                 {
                     Succeeded = true,
-                    Result = categoryList
+                    Result = mapCategory
                 };
             }
             catch (Exception e)
@@ -135,12 +107,54 @@ namespace Auction.Application.CategoryServices
 
         public async Task<ApplicationResult> Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var willDelete = await _context.Categories.FindAsync(id);
+                if (willDelete != null)
+                {
+                    _context.Categories.Remove(willDelete);
+                    await _context.SaveChangesAsync();
+                    return new ApplicationResult { Succeeded = true };
+                }
+                return new ApplicationResult { Succeeded = false, ErrorMessage = "Bir hata oluştu lütfen kontrol edip tekrar deneyiniz" };
+            }
+            catch (Exception e)
+            {
+                return new ApplicationResult { Succeeded = false, ErrorMessage = e.Message };
+            }
         }
 
         public async Task<ApplicationResult<CategoryDto>> Update(UpdateCategoryViewModel model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var getExistCategory = await _context.Categories.FindAsync(model.Id);
+                if (getExistCategory == null)
+                {
+                    return new ApplicationResult<CategoryDto>
+                    {
+                        Result = new CategoryDto(),
+                        Succeeded = false,
+                        ErrorMessage = "Böyle bir Kategori bulunamadı"
+                    };
+                }
+                var modifierUser = await _userManager.FindByIdAsync(model.ModifiedById);
+                getExistCategory.ModifiedBy = modifierUser.UserName;
+                _mapper.Map(model, getExistCategory);
+                _context.Update(getExistCategory);
+                await _context.SaveChangesAsync();
+                return await Get(getExistCategory.Id);
+
+            }
+            catch (Exception e)
+            {
+                return new ApplicationResult<CategoryDto>
+                {
+                    Result = new CategoryDto(),
+                    Succeeded = false,
+                    ErrorMessage = e.Message
+                };
+            }
         }
     }
 }

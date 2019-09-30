@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Auction.Application.CategoryServices.Dtos.CategoryDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Kategoriler</h2>
+
+<p>
+    <a asp-area="Category" asp-controller="Category" asp-action="Create" class="btn btn-xs btn-flat btn-primary">Yeni Kategori</a>
+</p>
+<table id="CategoryTable" class="table table-bordered table-striped table-responsive">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryUrlName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedDate)
+            </th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryUrlName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModifiedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModifiedDate)
+                </td>
+                <td>
+                    <a asp-area="Category" asp-controller="Category" asp-action="Details" asp-route-Id="@item.Id" class="btn btn-xs btn-flat btn-info">Detay</a>
+                    <a asp-area="Category" asp-controller="Category" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-xs btn-flat btn-warning">Düzenle</a>
+                    <a asp-area="Category" asp-controller="Category" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-xs btn-flat btn-danger">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

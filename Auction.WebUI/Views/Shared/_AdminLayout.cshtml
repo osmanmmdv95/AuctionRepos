@@ -101,6 +101,17 @@
                             </a>
                         </li>
                     }
+                    @if (User.IsInRole("Admin") || User.IsInRole("Editor"))
+                    {
+                        <li>
+                            <a asp-area="Category" asp-controller="Category" asp-action="Index">
+                                <i class="fa fa-list-alt"></i> <span>Kategoriler</span>
+                                <span class="pull-right-container">
+                                    <small class="label pull-right bg-green">new</small>
+                                </span>
+                            </a>
+                        </li>
+                    }
 
                     <li class="treeview">
                         <a href="#">
@@ -464,8 +475,9 @@
     <script src="~/js/demo.js"></script>
     <script>
         $(function () {
-            $('#example1').DataTable();
-            $('#example2').DataTable({
+            $('#userTable').DataTable();
+            $('#CategoryTable').DataTable({});
+            $('#RolesTable').DataTable({
                 'paging': true,
                 'lengthChange': false,
                 'searching': false,

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="bootstrap" Version="4.3.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
@@ -28,6 +29,8 @@
     <Folder Include="Areas\Account\Models\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Category\Data\" />
+    <Folder Include="Areas\Category\Models\" />
     <Folder Include="Areas\Error\Data\" />
     <Folder Include="Areas\Error\Models\" />
     <Folder Include="Areas\Manage\Data\" />
