@@ -1,23 +1,25 @@
-﻿@model IEnumerable<Auction.Application.CategoryServices.Dtos.CategoryDto>
+﻿@model IEnumerable<Auction.Application.BrandServices.BrandDto>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Kategoriler</h2>
-
+<h2>Yeni Marka</h2>
 <p>
-    <a asp-area="Category" asp-controller="Category" asp-action="Create" class="btn btn-sm btn-flat btn-primary">Yeni Kategori</a>
+    <a asp-area="Brand" asp-controller="Brand" asp-action="Create" class="btn btn-sm btn-flat btn-primary">Yeni Marka</a>
 </p>
-<table id="CategoryTable" class="table table-bordered table-striped table-responsive">
+<table id="BrandTable" class="table table-bordered table-striped table-responsive">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CategoryName)
+                @Html.DisplayNameFor(model => model.BrandName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CategoryUrlName)
+                @Html.DisplayNameFor(model => model.BrandUrlName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubCategoryName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreatedBy)
@@ -39,10 +41,13 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CategoryName)
+                    @Html.DisplayFor(modelItem => item.BrandName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CategoryUrlName)
+                    @Html.DisplayFor(modelItem => item.BrandUrlName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubCategoryName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CreatedBy)
@@ -57,9 +62,9 @@
                     @Html.DisplayFor(modelItem => item.ModifiedDate)
                 </td>
                 <td>
-                    <a asp-area="Category" asp-controller="Category" asp-action="Details" asp-route-Id="@item.Id" class="btn btn-xs btn-flat btn-info">Detay</a>
-                    <a asp-area="Category" asp-controller="Category" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-xs btn-flat btn-warning">Düzenle</a>
-                    <a asp-area="Category" asp-controller="Category" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-xs btn-flat btn-danger">Sil</a>
+                    <a asp-area="Brand" asp-controller="Brand" asp-action="Details" asp-route-Id="@item.Id" class="btn btn-xs btn-flat btn-info">Detay</a>
+                    <a asp-area="Brand" asp-controller="Brand" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-xs btn-flat btn-warning">Düzenle</a>
+                    <a asp-area="Brand" asp-controller="Brand" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-xs btn-flat btn-danger">Sil</a>
                 </td>
             </tr>
         }

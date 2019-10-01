@@ -4,50 +4,54 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Auction.Application;
+using Auction.Application.BrandServices;
+using Auction.Application.BrandServices.Dtos;
 using Auction.Application.SubCategoryServices;
 using Auction.Application.SubCategoryServices.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Auction.WebUI.Areas.SubCategory.Controllers
+namespace Auction.WebUI.Areas.Brand.Controllers
 {
     [Authorize(Roles = "Admin, Editor")]
-    [Area("SubCategory")]
-    public class SubCategoryController : Controller
+    [Area("Brand")]
+    public class BrandController : Controller
     {
-
         private readonly ISubCategoryService _subCategoryService;
         private readonly ICategoryservice _categoryService;
+        private readonly IBrandService _brandService;
 
-        public SubCategoryController(ISubCategoryService subCategoryService, ICategoryservice categoryService)
+        public BrandController(ISubCategoryService subCategoryService, ICategoryservice categoryService,IBrandService brandService)
         {
             _subCategoryService = subCategoryService;
             _categoryService = categoryService;
+            _brandService = brandService;
         }
 
-        [Route("SubCategory")]
+        [Route("Brand")]
         public async Task<IActionResult> Index()
         {
-            var getAllService = await _subCategoryService.GetAll();
+            var getAllService = await _brandService.GetAll();
             return View(getAllService.Result);
         }
 
-        [Route("/SubCategory/Details")]
+        [Route("/Brand/Details")]
         public async Task<IActionResult> Details(int id)
         {
-            var getService = await _subCategoryService.Get(id);
+            var getService = await _brandService.Get(id);
             return View(getService.Result);
         }
 
-        [Route("/SubCategory/Create")]
+
+        [Route("/Brand/Create")]
         public async Task<IActionResult> Create()
         {
-            var categoryList = await _categoryService.GetAll();
-            ViewBag.CategoryDDL = categoryList.Result.Select(x => new SelectListItem
+            var subCategoryList = await _subCategoryService.GetAll();
+            ViewBag.subCategoryDDL = subCategoryList.Result.Select(x => new SelectListItem
             {
                 Selected = false,
-                Text = x.CategoryName,
+                Text = x.SubCategoryName,
                 Value = x.Id.ToString()
             }).ToList();
             return View();
@@ -55,13 +59,14 @@ namespace Auction.WebUI.Areas.SubCategory.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("/SubCategory/Create")]
-        public async Task<IActionResult> Create(CreateSubCategoryViewModel model)
+        [Route("/Brand/Create")]
+        public async Task<IActionResult> Create(CreateBrandViewModel model)
         {
+            var returnErrorModel = model;
             if (ModelState.IsValid)
             {
                 model.CreatedById = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                var result = await _subCategoryService.Create(model);
+                var result = await _brandService.Create(model);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index");
@@ -69,32 +74,32 @@ namespace Auction.WebUI.Areas.SubCategory.Controllers
                 ModelState.AddModelError(string.Empty, result.ErrorMessage);
 
             }
-            var categoryList = await _categoryService.GetAll();
-            ViewBag.CategoryDDL = categoryList.Result.Select(x => new SelectListItem
+            var subCategoryList = await _subCategoryService.GetAll();
+            ViewBag.subCategoryDDL = subCategoryList.Result.Select(x => new SelectListItem
             {
                 Selected = false,
                 Text = x.CategoryName,
                 Value = x.Id.ToString()
             }).ToList();
-            return View(model);
+            return View(returnErrorModel);
         }
 
-        [Route("/SubCategory/Delete/{id}")]
+        [Route("/Brand/Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var getService = await _subCategoryService.Get(id);
+            var getService = await _brandService.Get(id);
             return View(getService.Result);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("/SubCategory/Delete/{id}")]
-        public async Task<IActionResult> Delete(int id, SubCategoryDto model)
+        [Route("/Brand/Delete/{id}")]
+        public async Task<IActionResult> Delete(int id, BrandDto model)
         {
             var errorReturnModel = model;
             if (ModelState.IsValid & id == model.Id)
             {
-                var deleteService = await _subCategoryService.Delete(id);
+                var deleteService = await _brandService.Delete(id);
                 if (deleteService.Succeeded)
                 {
                     return RedirectToAction("Index");
@@ -106,35 +111,36 @@ namespace Auction.WebUI.Areas.SubCategory.Controllers
             return View(errorReturnModel);
         }
 
-        [Route("/SubCategory/Edit/{id}")]
+
+        [Route("/Brand/Edit/{id}")]
         public async Task<IActionResult> Edit(int id)
         {
-            var getService = await _subCategoryService.Get(id);
+            var getService = await _brandService.Get(id);
 
-            var categoryList = await _categoryService.GetAll();
-            ViewBag.CategoryDDL = categoryList.Result.Select(x => new SelectListItem
+            var subCategoryList = await _subCategoryService.GetAll();
+            ViewBag.subCategoryDDL = subCategoryList.Result.Select(x => new SelectListItem
             {
                 Selected = false,
-                Text = x.CategoryName,
+                Text = x.SubCategoryName,
                 Value = x.Id.ToString()
             }).ToList();
 
-            UpdateSubCategoryViewModel model = new UpdateSubCategoryViewModel
+            UpdateBrandViewModel model = new UpdateBrandViewModel()
             {
                 Id = getService.Result.Id,
                 CreatedById = getService.Result.CreatedById,
                 ModifiedById = User.FindFirst(ClaimTypes.NameIdentifier).Value,
-                SubCategoryName = getService.Result.SubCategoryName,
-                SubCategoryUrlName = getService.Result.SubCategoryName,
-                CategoryId = getService.Result.CategoryId
+                BrandName = getService.Result.BrandName,
+                BrandUrlName = getService.Result.BrandUrlName,
+                SubCategoryId = getService.Result.SubCategoryId
             };
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("/SubCategory/Edit/{id}")]
-        public async Task<IActionResult> Edit(int id, UpdateSubCategoryViewModel model)
+        [Route("/Brand/Edit/{id}")]
+        public async Task<IActionResult> Edit(int id, UpdateBrandViewModel model)
         {
             //Hata olursa geri dönecek model
             var errorReturnModel = model;
@@ -147,11 +153,11 @@ namespace Auction.WebUI.Areas.SubCategory.Controllers
                 }
                 else
                 {
-                    var getService = await _subCategoryService.Get(id);
+                    var getService = await _brandService.Get(id);
                     model.CreatedById = getService.Result.CreatedById;
                     model.Id = getService.Result.Id;
                     model.ModifiedById = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                    var updateService = await _subCategoryService.Update(model);
+                    var updateService = await _brandService.Update(model);
                     if (updateService.Succeeded)
                     {
                         return RedirectToAction("Details", new { id });
@@ -160,16 +166,15 @@ namespace Auction.WebUI.Areas.SubCategory.Controllers
                 }
 
             }
-            var categoryList = await _categoryService.GetAll();
-            ViewBag.CategoryDDL = categoryList.Result.Select(x => new SelectListItem
+            var subCategoryList = await _subCategoryService.GetAll();
+            ViewBag.subCategoryDDL = subCategoryList.Result.Select(x => new SelectListItem
             {
                 Selected = false,
-                Text = x.CategoryName,
+                Text = x.SubCategoryName,
                 Value = x.Id.ToString()
             }).ToList();
 
             return View(errorReturnModel);
         }
     }
-
 }

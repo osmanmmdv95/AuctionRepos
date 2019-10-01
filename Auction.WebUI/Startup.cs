@@ -131,6 +131,10 @@ namespace Auction.WebUI
                     template: "{area:exists}/{controller=SubCategory}/{action=Index}/{id?}"
                 );
                 routes.MapRoute(
+                    name: "Brand",
+                    template: "{area:exists}/{controller=Brand}/{action=Index}/{id?}"
+                );
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });

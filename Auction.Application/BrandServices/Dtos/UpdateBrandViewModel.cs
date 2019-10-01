@@ -6,7 +6,7 @@ namespace Auction.Application.BrandServices.Dtos
 {
     public class UpdateBrandViewModel : CreateBrandViewModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string ModifiedById { get; set; }
 
     }

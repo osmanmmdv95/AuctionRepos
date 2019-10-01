@@ -66,11 +66,13 @@ namespace Auction.WebUI.Areas.Category.Controllers
             var getService = await _categoryService.Get(id);
             return View(getService.Result);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("/Category/Delete/{id}")]
         public async Task<IActionResult> Delete(int id, CategoryDto model)
         {
+            var errorReturnModel = model;
             if (ModelState.IsValid)
             {
                 var deleteService = await _categoryService.Delete(id);
@@ -81,8 +83,7 @@ namespace Auction.WebUI.Areas.Category.Controllers
                 ModelState.AddModelError(string.Empty, deleteService.ErrorMessage);
                 ViewBag.DeleteError = deleteService.ErrorMessage;
             }
-            var getService = await _categoryService.Get(id);
-            return View(getService.Result);
+          return View(errorReturnModel);
 
         }
 
@@ -90,7 +91,7 @@ namespace Auction.WebUI.Areas.Category.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var getService = await _categoryService.Get(id);
-            UpdateCategoryViewModel input = new UpdateCategoryViewModel
+            UpdateCategoryViewModel model = new UpdateCategoryViewModel
             {
                 Id = getService.Result.Id,
                 CreatedById = getService.Result.CreatedById,
@@ -98,27 +99,38 @@ namespace Auction.WebUI.Areas.Category.Controllers
                 CategoryName = getService.Result.CategoryName,
                 CategoryUrlName = getService.Result.CategoryUrlName
             };
-            return View(input);
+            return View(model);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("/Category/Edit/{id}")]
         public async Task<IActionResult> Edit(int id, UpdateCategoryViewModel model)
         {
+            //Hata durumunda geri dönecek model
+            var errorReturnModel = model;
             if (ModelState.IsValid)
             {
-                var getService = await _categoryService.Get(id);
-                model.CreatedById = getService.Result.CreatedById;
-                model.Id = getService.Result.Id;
-                model.ModifiedById = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                var updateService = await _categoryService.Update(model);
-                if (updateService.Succeeded)
+                if (id != model.Id)
                 {
-                    return RedirectToAction("Details", new { id });
+                    ModelState.AddModelError(string.Empty, "Bir hata oluştu!");
                 }
-                ModelState.AddModelError(string.Empty, updateService.ErrorMessage);
+                else
+                {
+                    var getService = await _categoryService.Get(id);
+                    model.CreatedById = getService.Result.CreatedById;
+                    model.Id = getService.Result.Id;
+                    model.ModifiedById = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                    var updateService = await _categoryService.Update(model);
+                    if (updateService.Succeeded)
+                    {
+                        return RedirectToAction("Details", new { id });
+                    }
+                    ModelState.AddModelError(string.Empty, updateService.ErrorMessage);
+                }
+
             }
-            return View(model);
+
+            return View(errorReturnModel);
         }
 
     }

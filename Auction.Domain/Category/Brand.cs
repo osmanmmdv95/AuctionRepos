@@ -9,6 +9,7 @@ namespace Auction.Domain.Category
     public class Brand : Entity
     {
         public string BrandName { get; set; }
+        public string BrandUrlName { get; set; }
 
         [ForeignKey("SubCategoryId")]
         public virtual SubCategory SubCategory { get; set; }
