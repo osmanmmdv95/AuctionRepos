@@ -6,7 +6,7 @@ using Auction.Domain.Shared;
 
 namespace Auction.Domain.Category
 {
-   public class SubCategory :Entity
+    public class SubCategory : Entity
     {
         public string SubCategoryName { get; set; }
         public string SubCategoryUrlName { get; set; }

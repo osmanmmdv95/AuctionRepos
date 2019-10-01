@@ -5,12 +5,12 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2>@Model.SubCategoryName Sil</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Bu alt kategoriyi silmek istediğinize emin misiniz?</h3>
 
 <div>
-    <h4>SubCategoryDto</h4>
+   
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -53,7 +53,7 @@
     </dl>
 
     <form asp-action="Delete">
-        <input type="submit" value="Delete" class="btn btn-sm btn-flat btn-danger" /> |
+        <input type="submit" value="Sil" class="btn btn-sm btn-flat btn-danger" /> |
         <a asp-action="Index">Listeye dön</a>
     </form>
 </div>

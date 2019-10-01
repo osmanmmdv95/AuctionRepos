@@ -79,14 +79,11 @@ namespace Auction.WebUI.Areas.Category.Controllers
                     return RedirectToAction("Index");
                 }
                 ModelState.AddModelError(string.Empty, deleteService.ErrorMessage);
+                ViewBag.DeleteError = deleteService.ErrorMessage;
             }
-            else
-            {
-                var getService = await _categoryService.Get(id);
-                return View(getService.Result);
-            }
+            var getService = await _categoryService.Get(id);
+            return View(getService.Result);
 
-            return View(model);
         }
 
         [Route("/Category/Edit/{id}")]

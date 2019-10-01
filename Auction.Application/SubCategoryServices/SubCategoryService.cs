@@ -32,7 +32,6 @@ namespace Auction.Application.SubCategoryServices
             {
                 SubCategory subCategory = await _context.SubCategories.FindAsync(id);
                 SubCategoryDto mapSubCategory = _mapper.Map<SubCategoryDto>(subCategory);
-
                 return new ApplicationResult<SubCategoryDto>
                 {
                     Result = mapSubCategory,
@@ -53,13 +52,54 @@ namespace Auction.Application.SubCategoryServices
         {
             try
             {
-                List<SubCategory> SubCategoryList = await _context.SubCategories.ToListAsync();
-                List<SubCategoryDto> mapSubCategory = _mapper.Map<List<SubCategoryDto>>(SubCategoryList);
+                //List<SubCategory> SubCategoryList = await _context.SubCategories.ToListAsync();
+                //List<SubCategoryDto> mapSubCategory = _mapper.Map<List<SubCategoryDto>>(SubCategoryList);
+
+                var SubCategoryList = await (from s in _context.SubCategories
+                                             join c in _context.Categories on s.CategoryId equals c.Id
+                                             select new
+                                             {
+
+                                                 c.CategoryName,
+                                                 s.Id,
+                                                 s.CategoryId,
+                                                 s.SubCategoryName,
+                                                 s.SubCategoryUrlName,
+                                                 s.CreatedBy,
+                                                 s.CreatedById,
+                                                 s.CreatedDate,
+                                                 s.ModifiedBy,
+                                                 s.ModifiedById,
+                                                 s.ModifiedDate
+
+                                             }).ToListAsync();
+
+                List<SubCategoryDto> listSubCategory = new List<SubCategoryDto>();
+                foreach (var item in SubCategoryList)
+                {
+                    SubCategoryDto mapSubCategory = new SubCategoryDto
+                    {
+                        Id = item.Id,
+                        CategoryName = item.CategoryName,
+                        CategoryId = item.CategoryId,
+                        SubCategoryName = item.SubCategoryName,
+                        SubCategoryUrlName = item.SubCategoryUrlName,
+                        CreatedBy = item.CreatedBy,
+                        CreatedById = item.CreatedById,
+                        CreatedDate = item.CreatedDate,
+                        ModifiedBy = item.ModifiedBy,
+                        ModifiedById = item.ModifiedById,
+                        ModifiedDate = item.ModifiedDate
+
+                    };
+                    listSubCategory.Add(mapSubCategory);
+                }
+
 
                 return new ApplicationResult<List<SubCategoryDto>>
                 {
                     Succeeded = true,
-                    Result = mapSubCategory
+                    Result = listSubCategory
                 };
             }
             catch (Exception e)
@@ -107,7 +147,7 @@ namespace Auction.Application.SubCategoryServices
             try
             {
                 var willDelete = await _context.SubCategories.FindAsync(id);
-              
+
                 if (willDelete != null)
                 {
                     _context.SubCategories.Remove(willDelete);
@@ -122,7 +162,7 @@ namespace Auction.Application.SubCategoryServices
             }
         }
 
-       
+
 
 
 

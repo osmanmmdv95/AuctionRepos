@@ -35,7 +35,9 @@ namespace Auction.Application.Shared
 
             /****************************SUBCATEGORY MAPPER***********************************************/
             CreateMap<SubCategoryDto, SubCategory>();
-            CreateMap<SubCategory, SubCategoryDto>();
+            CreateMap<SubCategory, SubCategoryDto>()
+                .ForMember(x => x.CategoryName, opt => opt.Ignore());
+
             CreateMap<CreateSubCategoryViewModel, SubCategory>()
                 .ForMember(x => x.Id, opt => opt.Ignore())
                 .ForMember(x => x.CreatedBy, opt => opt.Ignore())

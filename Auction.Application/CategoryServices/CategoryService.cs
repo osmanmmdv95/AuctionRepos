@@ -110,7 +110,7 @@ namespace Auction.Application.CategoryServices
             try
             {
                 var willDelete = await _context.Categories.FindAsync(id);
-                if (_context.Categories.Where(x => x.Id == id).Any())
+                if (_context.SubCategories.Where(x => x.CategoryId == id).Any())
                 {
                     return new ApplicationResult { Succeeded = false, ErrorMessage = "Bu kategoriye bağlı alt kategoriler olduğundan silinemez!" };
                 }

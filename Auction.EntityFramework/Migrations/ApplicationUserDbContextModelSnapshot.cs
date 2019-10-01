@@ -78,6 +78,8 @@ namespace Auction.EntityFramework.Migrations
 
                     b.Property<int?>("CategoryId");
 
+                    b.Property<string>("CategoryName");
+
                     b.Property<string>("CreatedBy");
 
                     b.Property<string>("CreatedById");

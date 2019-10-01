@@ -8,6 +8,12 @@
 <h2>@Model.CategoryName Sil</h2>
 
 <h3>Bu kategoriyi silmek istediğinize emin misiniz?</h3>
+
+@if (ViewBag.DeleteError != null)
+{
+<h1 class="text-danger">@ViewBag.DeleteError</h1> 
+
+}
 <div>
     
     <hr />
@@ -54,7 +60,14 @@
     </dl>
 
     <form asp-action="Delete">
-        <input type="submit" value="Sil" class="btn btn-sm btn-flat btn-danger" /> |
+    @if (ViewBag.DeleteError != null)
+    {
+        <input id="btnDelete" type="submit" value="Sil" disabled class="btn btn-sm btn-flat btn-danger"/>
+    }
+    else
+    {
+        <input id="btnDelete" type="submit" value="Sil" class="btn btn-sm btn-flat btn-danger"/>
+    }|
         <a asp-action="Index">Back to List</a>
     </form>
 </div>
