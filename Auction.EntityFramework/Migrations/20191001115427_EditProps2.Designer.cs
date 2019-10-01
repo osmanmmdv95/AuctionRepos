@@ -3,14 +3,16 @@ using System;
 using Auction.EntityFramework.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Auction.EntityFramework.Migrations
 {
     [DbContext(typeof(ApplicationUserDbContext))]
-    partial class ApplicationUserDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191001115427_EditProps2")]
+    partial class EditProps2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

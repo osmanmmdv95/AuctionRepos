@@ -3,14 +3,16 @@ using System;
 using Auction.EntityFramework.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Auction.EntityFramework.Migrations
 {
     [DbContext(typeof(ApplicationUserDbContext))]
-    partial class ApplicationUserDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191001085228_EditProps")]
+    partial class EditProps
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,8 +93,6 @@ namespace Auction.EntityFramework.Migrations
                     b.Property<DateTime?>("ModifiedDate");
 
                     b.Property<string>("SubCategoryName");
-
-                    b.Property<string>("SubCategoryUrlName");
 
                     b.HasKey("Id");
 

@@ -6,7 +6,7 @@ namespace Auction.Application.SubCategoryServices.Dtos
 {
     public class UpdateSubCategoryViewModel : CreateSubCategoryViewModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string ModifiedById { get; set; }
     }
 }

@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Auction.Application.SubCategoryServices.Dtos.SubCategoryDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Alt Kategoriler</h2>
+
+<p>
+    <a asp-area="SubCategory" asp-controller="SubCategory" asp-action="Create" class="btn btn-xs btn-flat btn-primary">Yeni Alt Kategori</a>
+</p>
+
+<table id="SubCategoryTable" class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SubCategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryId)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedDate)
+            </th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubCategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryId)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModifiedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModifiedDate)
+                </td>
+                <td>
+                    <a asp-area="SubCategory" asp-controller="SubCategory" asp-action="Details" asp-route-Id="@item.Id" class="btn btn-xs btn-flat btn-info">Detay</a>
+                    <a asp-area="SubCategory" asp-controller="SubCategory" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-xs btn-flat btn-warning">Düzenle</a>
+                    <a asp-area="SubCategory" asp-controller="SubCategory" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-xs btn-flat btn-danger">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

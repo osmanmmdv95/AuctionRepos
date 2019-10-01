@@ -103,13 +103,29 @@
                     }
                     @if (User.IsInRole("Admin") || User.IsInRole("Editor"))
                     {
-                        <li>
-                            <a asp-area="Category" asp-controller="Category" asp-action="Index">
-                                <i class="fa fa-list-alt"></i> <span>Kategoriler</span>
+                        @*<li>
+                                <a asp-area="Category" asp-controller="Category" asp-action="Index">
+                                    <i class="fa fa-list-alt"></i> <span>Kategoriler</span>
+                                    <span class="pull-right-container">
+                                        <small class="label pull-right bg-green">new</small>
+                                    </span>
+                                </a>
+                            </li>*@
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-list-alt"></i>
+                                <span>Kategoriler</span>
                                 <span class="pull-right-container">
                                     <small class="label pull-right bg-green">new</small>
                                 </span>
                             </a>
+                            <ul class="treeview-menu">
+                                <li> <a asp-area="Category" asp-controller="Category" asp-action="Index"> <i class="fa fa-circle"></i> Kategori</a></li>
+                                <li> <a asp-area="SubCategory" asp-controller="SubCategory" asp-action="Index"> <i class="fa fa-circle"></i> Alt Kategori</a></li>
+                                <li> <a asp-area="Brand" asp-controller="Brand" asp-action="Index"> <i class="fa fa-circle"></i>  Marka</a></li>
+
+                            </ul>
                         </li>
                     }
 
@@ -476,7 +492,8 @@
     <script>
         $(function () {
             $('#userTable').DataTable();
-            $('#CategoryTable').DataTable({});
+            $('#CategoryTable').DataTable();
+            $('#SubCategoryTable').DataTable();
             $('#RolesTable').DataTable({
                 'paging': true,
                 'lengthChange': false,

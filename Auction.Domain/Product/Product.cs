@@ -11,7 +11,7 @@ namespace Auction.Domain.Product
     public class Product : Entity<Guid>
     {
         public string ProductName { get; set; }
-        public bool ProductActive { get; set; }
+        public bool ProductIsActive { get; set; }
         public DateTime UploadDate { get; set; }
         public DateTime ActiveDateTime { get; set; }
         public bool IsItSold { get; set; }

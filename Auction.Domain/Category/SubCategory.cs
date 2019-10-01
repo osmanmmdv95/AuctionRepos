@@ -9,6 +9,7 @@ namespace Auction.Domain.Category
    public class SubCategory :Entity
     {
         public string SubCategoryName { get; set; }
+        public string SubCategoryUrlName { get; set; }
 
         [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }

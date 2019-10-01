@@ -78,11 +78,14 @@ namespace Auction.WebUI.Areas.Category.Controllers
                 {
                     return RedirectToAction("Index");
                 }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, deleteService.ErrorMessage);
-                }
+                ModelState.AddModelError(string.Empty, deleteService.ErrorMessage);
             }
+            else
+            {
+                var getService = await _categoryService.Get(id);
+                return View(getService.Result);
+            }
+
             return View(model);
         }
 

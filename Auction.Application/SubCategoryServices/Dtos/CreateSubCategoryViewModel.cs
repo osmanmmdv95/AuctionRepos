@@ -7,7 +7,7 @@ namespace Auction.Application.SubCategoryServices.Dtos
     public class CreateSubCategoryViewModel
     {
         public string SubCategoryName { get; set; }
-        public string UrlName { get; set; }
+        public string SubCategoryUrlName { get; set; }
         public string CreatedById { get; set; }
         public int CategoryId { get; set; }
     }
