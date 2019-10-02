@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Auction.Application.BrandServices.Dtos
+namespace Auction.Application.BrandServices
 {
    public class CreateBrandViewModel
     {

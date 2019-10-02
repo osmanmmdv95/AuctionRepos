@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Auction.Domain.Identity;
+using Auction.Domain.Product;
 
-namespace Auction.Domain.Product
+namespace Auction.Application.ProductServices
 {
-    public class ProductDetails
+    public class ProductDto : EntityDto<Guid>
     {
+        public string ProductName { get; set; }
+        public bool ProductIsActive { get; set; }
+        public DateTime UploadDate { get; set; }
+        public DateTime ActiveDateTime { get; set; }
+        public bool IsItSold { get; set; }
 
         public decimal ProductPrice { get; set; }
         public DateTime ProductYear { get; set; }
@@ -19,15 +25,17 @@ namespace Auction.Domain.Product
         public string ProductDetail { get; set; }
 
 
-
-
-        [ForeignKey("ProductCityId")]
         public virtual ProductCity ProductCity { get; set; }
         public virtual int? ProductCityId { get; set; }
 
 
-        [ForeignKey("ProductId")]
-        public virtual Product Product { get; set; }
-        public virtual string ProductId {get; set; }
+
+        public virtual ApplicationUser HighestBidderUser { get; set; }
+        public virtual string HighestBidderUserId { get; set; }
+
+
+
+        public virtual ApplicationUser AddProductUser { get; set; }
+        public virtual string AddProductUserId { get; set; }
     }
 }

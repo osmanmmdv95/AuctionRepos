@@ -28,7 +28,7 @@ namespace Auction.Domain.Product
 
         [ForeignKey("ProductCityId")]
         public virtual ProductCity ProductCity { get; set; }
-        public virtual int ProductCityId { get; set; }
+        public virtual int? ProductCityId { get; set; }
 
 
         [ForeignKey("HighestBidderUserId")]

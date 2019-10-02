@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Auction.Application.BrandServices.Dtos
+namespace Auction.Application.BrandServices
 {
     public class BrandDeleteViewModel
     {
