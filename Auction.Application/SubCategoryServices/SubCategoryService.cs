@@ -30,8 +30,47 @@ namespace Auction.Application.SubCategoryServices
         {
             try
             {
-                SubCategory subCategory = await _context.SubCategories.FindAsync(id);
-                SubCategoryDto mapSubCategory = _mapper.Map<SubCategoryDto>(subCategory);
+                //SubCategory subCategory = await _context.SubCategories.FindAsync(id);
+                //SubCategoryDto mapSubCategory = _mapper.Map<SubCategoryDto>(subCategory);
+                var SubCategoryList = await (from s in _context.SubCategories
+                                             join c in _context.Categories on s.CategoryId equals c.Id
+                                             select new
+                                             {
+
+                                                 c.CategoryName,
+                                                 s.Id,
+                                                 s.CategoryId,
+                                                 s.SubCategoryName,
+                                                 s.SubCategoryUrlName,
+                                                 s.CreatedBy,
+                                                 s.CreatedById,
+                                                 s.CreatedDate,
+                                                 s.ModifiedBy,
+                                                 s.ModifiedById,
+                                                 s.ModifiedDate
+
+                                             }).ToListAsync();
+                var selectSubCategory= SubCategoryList.Where(x=>x.Id == id).FirstOrDefault();
+
+                SubCategoryDto mapSubCategory = new SubCategoryDto();
+           
+                    mapSubCategory = new SubCategoryDto
+                    {
+                        Id = selectSubCategory.Id,
+                        CategoryName = selectSubCategory.CategoryName,
+                        CategoryId = selectSubCategory.CategoryId,
+                        SubCategoryName = selectSubCategory.SubCategoryName,
+                        SubCategoryUrlName = selectSubCategory.SubCategoryUrlName,
+                        CreatedBy = selectSubCategory.CreatedBy,
+                        CreatedById = selectSubCategory.CreatedById,
+                        CreatedDate = selectSubCategory.CreatedDate,
+                        ModifiedBy = selectSubCategory.ModifiedBy,
+                        ModifiedById = selectSubCategory.ModifiedById,
+                        ModifiedDate = selectSubCategory.ModifiedDate
+
+                    };
+              
+
                 return new ApplicationResult<SubCategoryDto>
                 {
                     Result = mapSubCategory,

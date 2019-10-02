@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Auction.Application.BrandServices;
 using Auction.Application.BrandServices.Dtos;
@@ -33,7 +34,7 @@ namespace Auction.Application.Shared
                 .ForMember(x => x.ModifiedById, opt => opt.UseDestinationValue())
                 .ForMember(x => x.CreatedDate, opt => opt.UseDestinationValue())
                 .ForMember(x => x.ModifiedDate, opt => opt.MapFrom(s => DateTime.UtcNow));
-          
+
 
 
 
@@ -58,19 +59,19 @@ namespace Auction.Application.Shared
                 .ForMember(x => x.ModifiedById, opt => opt.UseDestinationValue())
                 .ForMember(x => x.CreatedDate, opt => opt.UseDestinationValue())
                 .ForMember(x => x.ModifiedDate, opt => opt.MapFrom(s => DateTime.UtcNow));
-          
+
 
 
             /****************************BRAND MAPPER***********************************************/
             CreateMap<BrandDto, Brand>();
             CreateMap<Brand, BrandDto>();
             CreateMap<CreateBrandViewModel, Brand>()
-                .ForMember(x => x.Id, opt => opt.Ignore())
-                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
-                .ForMember(x => x.ModifiedBy, opt => opt.Ignore())
-                .ForMember(x => x.ModifiedById, opt => opt.Ignore())
-                .ForMember(x => x.CreatedDate, opt => opt.MapFrom(s => DateTime.UtcNow))
-                .ForMember(x => x.ModifiedDate, opt => opt.Ignore());
+                   .ForMember(x => x.Id, opt => opt.Ignore())
+                   .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                   .ForMember(x => x.ModifiedBy, opt => opt.Ignore())
+                   .ForMember(x => x.ModifiedById, opt => opt.Ignore())
+                   .ForMember(x => x.CreatedDate, opt => opt.MapFrom(s => DateTime.UtcNow))
+                   .ForMember(x => x.ModifiedDate, opt => opt.Ignore());
 
 
             CreateMap<UpdateBrandViewModel, Brand>()

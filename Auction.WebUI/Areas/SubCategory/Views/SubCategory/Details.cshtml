@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>@Model.SubCategoryName Detayları</h2>
 
 <div>
-    <h4>SubCategoryDto</h4>
+   
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -18,10 +18,10 @@
             @Html.DisplayFor(model => model.SubCategoryName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.CategoryId)
+            @Html.DisplayNameFor(model => model.CategoryName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.CategoryId)
+            @Html.DisplayFor(model => model.CategoryName)
         </dd>
 
         <dt>

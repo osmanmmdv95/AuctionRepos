@@ -30,8 +30,47 @@ namespace Auction.Application.BrandServices
         {
             try
             {
-                Brand brand = await _context.Brands.FindAsync(id);
-                BrandDto mapBrand = _mapper.Map<BrandDto>(brand);
+                //Brand brand = await _context.Brands.FindAsync(id);
+                //BrandDto mapBrand = _mapper.Map<BrandDto>(brand);
+
+                var brandList = await (from s in _context.Brands
+                                       join c in _context.SubCategories on s.SubCategoryId equals c.Id
+                                       select new
+                                       {
+
+                                           c.SubCategoryName,
+                                           s.SubCategoryId,
+                                           s.Id,
+                                           s.BrandName,
+                                           s.BrandUrlName,
+                                           s.CreatedBy,
+                                           s.CreatedById,
+                                           s.CreatedDate,
+                                           s.ModifiedBy,
+                                           s.ModifiedById,
+                                           s.ModifiedDate
+
+                                       }).ToListAsync();
+                var selectBrand = brandList.Where(x => x.Id == id).FirstOrDefault();
+                BrandDto mapBrand = new BrandDto();
+            
+                    mapBrand = new BrandDto
+                    {
+
+                        SubCategoryName = selectBrand.SubCategoryName,
+                        SubCategoryId = selectBrand.SubCategoryId,
+                        Id = selectBrand.Id,
+                        BrandName = selectBrand.BrandName,
+                        BrandUrlName = selectBrand.BrandUrlName,
+                        CreatedBy = selectBrand.CreatedBy,
+                        CreatedById = selectBrand.CreatedById,
+                        CreatedDate = selectBrand.CreatedDate,
+                        ModifiedBy = selectBrand.ModifiedBy,
+                        ModifiedById = selectBrand.ModifiedById,
+                        ModifiedDate = selectBrand.ModifiedDate
+
+                    };
+
                 return new ApplicationResult<BrandDto>
                 {
                     Result = mapBrand,
@@ -53,6 +92,7 @@ namespace Auction.Application.BrandServices
         {
             try
             {
+
                 var brandList = await (from s in _context.Brands
                                        join c in _context.SubCategories on s.SubCategoryId equals c.Id
                                        select new
@@ -77,7 +117,7 @@ namespace Auction.Application.BrandServices
                 {
                     BrandDto mapBrand = new BrandDto
                     {
-                        
+
                         SubCategoryName = item.SubCategoryName,
                         SubCategoryId = item.SubCategoryId,
                         Id = item.Id,
@@ -99,6 +139,7 @@ namespace Auction.Application.BrandServices
                     Succeeded = true,
                     Result = listBrand
                 };
+
             }
             catch (Exception e)
             {

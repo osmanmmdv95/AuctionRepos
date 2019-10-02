@@ -15,7 +15,7 @@ namespace Auction.Application.SubCategoryServices.Dtos
 
         [DisplayName("Alt Kategori Url")]
         public string SubCategoryUrlName { get; set; }
-
+        [DisplayName("Kategori Adı")]
         public string CategoryName { get; set; }
 
         [DisplayName("Kategori Adı")]
