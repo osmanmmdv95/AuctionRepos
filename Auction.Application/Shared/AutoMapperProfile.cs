@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Auction.Application.BrandServices;
-using Auction.Application.BrandServices.Dtos;
 using Auction.Application.CategoryServices.Dtos;
 using Auction.Application.SubCategoryServices.Dtos;
 using Auction.Domain.Category;
