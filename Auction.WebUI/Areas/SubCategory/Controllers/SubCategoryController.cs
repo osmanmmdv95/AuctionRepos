@@ -34,7 +34,7 @@ namespace Auction.WebUI.Areas.SubCategory.Controllers
         }
 
         [Route("/SubCategory/Details")]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(Guid id)
         {
             var getService = await _subCategoryService.Get(id);
             return View(getService.Result);
@@ -80,7 +80,7 @@ namespace Auction.WebUI.Areas.SubCategory.Controllers
         }
 
         [Route("/SubCategory/Delete/{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             var getService = await _subCategoryService.Get(id);
             return View(getService.Result);
@@ -89,7 +89,7 @@ namespace Auction.WebUI.Areas.SubCategory.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("/SubCategory/Delete/{id}")]
-        public async Task<IActionResult> Delete(int id, SubCategoryDto model)
+        public async Task<IActionResult> Delete(Guid id, SubCategoryDto model)
         {
             var errorReturnModel = model;
             if (ModelState.IsValid & id == model.Id)
@@ -107,7 +107,7 @@ namespace Auction.WebUI.Areas.SubCategory.Controllers
         }
 
         [Route("/SubCategory/Edit/{id}")]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(Guid id)
         {
             var getService = await _subCategoryService.Get(id);
 
@@ -134,7 +134,7 @@ namespace Auction.WebUI.Areas.SubCategory.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("/SubCategory/Edit/{id}")]
-        public async Task<IActionResult> Edit(int id, UpdateSubCategoryViewModel model)
+        public async Task<IActionResult> Edit(Guid id, UpdateSubCategoryViewModel model)
         {
             //Hata olursa geri dönecek model
             var errorReturnModel = model;

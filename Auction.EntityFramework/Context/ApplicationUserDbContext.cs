@@ -20,9 +20,7 @@ namespace Auction.EntityFramework.Context
         public DbSet<Brand> Brands { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ProductCity> ProductCities { get; set; }
-
-        //public DbSet<ProductDetails> ProductDetails { get; set; }
+        public DbSet<City> Cities { get; set; }
 
     }
 }

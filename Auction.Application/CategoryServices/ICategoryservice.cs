@@ -8,10 +8,10 @@ namespace Auction.Application
 {
     public interface ICategoryservice
     {
-        Task<ApplicationResult<CategoryDto>> Get(int id);
+        Task<ApplicationResult<CategoryDto>> Get(Guid id);
         Task<ApplicationResult<List<CategoryDto>>> GetAll();
         Task<ApplicationResult<CategoryDto>> Create(CreateCategoryViewModel model);
         Task<ApplicationResult<CategoryDto>> Update(UpdateCategoryViewModel model);
-        Task<ApplicationResult> Delete(int id);
+        Task<ApplicationResult> Delete(Guid id);
     }
 }

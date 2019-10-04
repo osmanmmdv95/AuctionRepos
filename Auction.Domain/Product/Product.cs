@@ -12,7 +12,6 @@ namespace Auction.Domain.Product
     {
         public string ProductName { get; set; }
         public bool ProductIsActive { get; set; }
-        public DateTime UploadDate { get; set; }
         public DateTime ActiveDateTime { get; set; }
         public bool IsItSold { get; set; }
 
@@ -20,26 +19,20 @@ namespace Auction.Domain.Product
         public DateTime ProductYear { get; set; }
         public decimal ProductKm { get; set; }
         public decimal ProductMinPrice { get; set; }
-        public decimal ProductMaxPrice { get; set; }
         public string ProductGearType { get; set; }
         public string ProductFuelType { get; set; }
         public string ProductImageUrl { get; set; }
         public string ProductDetail { get; set; }
 
+        [ForeignKey("ProductBrandId")]
+        public virtual Brand Brand { get; set; }
+        public virtual Guid? ProductBrandId { get; set; }
+
+
         [ForeignKey("ProductCityId")]
-        public virtual ProductCity ProductCity { get; set; }
-        public virtual int? ProductCityId { get; set; }
+        public virtual City City { get; set; }
+        public virtual int? CityId { get; set; }
 
-
-        [ForeignKey("HighestBidderUserId")]
-        public virtual ApplicationUser HighestBidderUser { get; set; }
-        public virtual string HighestBidderUserId { get; set; }
-
-
-
-        [ForeignKey("AddProductUserId")]
-        public virtual ApplicationUser AddProductUser { get; set; }
-        public virtual string AddProductUserId { get; set; }
 
     }
 }

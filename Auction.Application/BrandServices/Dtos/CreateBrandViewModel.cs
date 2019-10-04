@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Auction.Application.BrandServices
+namespace Auction.Application.BrandServices.Dtos
 {
    public class CreateBrandViewModel
     {
@@ -20,6 +20,6 @@ namespace Auction.Application.BrandServices
         public string CreatedById { get; set; }
 
         [DisplayName("Alt Kategori Adı")]
-        public int? SubCategoryId { get; set; }
+        public Guid? SubCategoryId { get; set; }
     }
 }

@@ -41,11 +41,49 @@ namespace Auction.EntityFramework.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    NationalIdNumber = table.Column<int>(nullable: true)
+                    NationalIdNumber = table.Column<long>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    UserIsActive = table.Column<bool>(nullable: false),
+                    UserDetail = table.Column<string>(nullable: true),
+                    UserPhoneNumber = table.Column<string>(nullable: true),
+                    UserAddress = table.Column<string>(nullable: true),
+                    UserImageUrl = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    CreatedById = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    ModifiedById = table.Column<string>(nullable: true),
+                    CategoryName = table.Column<string>(nullable: true),
+                    CategoryUrlName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductCities",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CityName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductCities", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -154,6 +192,101 @@ namespace Auction.EntityFramework.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "SubCategories",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    CreatedById = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    ModifiedById = table.Column<string>(nullable: true),
+                    SubCategoryName = table.Column<string>(nullable: true),
+                    SubCategoryUrlName = table.Column<string>(nullable: true),
+                    CategoryId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubCategories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SubCategories_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Brands",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    CreatedById = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    ModifiedById = table.Column<string>(nullable: true),
+                    BrandName = table.Column<string>(nullable: true),
+                    BrandUrlName = table.Column<string>(nullable: true),
+                    SubCategoryId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Brands", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Brands_SubCategories_SubCategoryId",
+                        column: x => x.SubCategoryId,
+                        principalTable: "SubCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    CreatedById = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    ModifiedById = table.Column<string>(nullable: true),
+                    ProductName = table.Column<string>(nullable: true),
+                    ProductIsActive = table.Column<bool>(nullable: false),
+                    ActiveDateTime = table.Column<DateTime>(nullable: false),
+                    IsItSold = table.Column<bool>(nullable: false),
+                    ProductPrice = table.Column<decimal>(nullable: false),
+                    ProductYear = table.Column<DateTime>(nullable: false),
+                    ProductKm = table.Column<decimal>(nullable: false),
+                    ProductMinPrice = table.Column<decimal>(nullable: false),
+                    ProductGearType = table.Column<string>(nullable: true),
+                    ProductFuelType = table.Column<string>(nullable: true),
+                    ProductImageUrl = table.Column<string>(nullable: true),
+                    ProductDetail = table.Column<string>(nullable: true),
+                    ProductBrandId = table.Column<Guid>(nullable: true),
+                    ProductCityId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Products_Brands_ProductBrandId",
+                        column: x => x.ProductBrandId,
+                        principalTable: "Brands",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Products_ProductCities_ProductCityId",
+                        column: x => x.ProductCityId,
+                        principalTable: "ProductCities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -190,6 +323,26 @@ namespace Auction.EntityFramework.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Brands_SubCategoryId",
+                table: "Brands",
+                column: "SubCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_ProductBrandId",
+                table: "Products",
+                column: "ProductBrandId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_ProductCityId",
+                table: "Products",
+                column: "ProductCityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubCategories_CategoryId",
+                table: "SubCategories",
+                column: "CategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -210,10 +363,25 @@ namespace Auction.EntityFramework.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Products");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Brands");
+
+            migrationBuilder.DropTable(
+                name: "ProductCities");
+
+            migrationBuilder.DropTable(
+                name: "SubCategories");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
         }
     }
 }
