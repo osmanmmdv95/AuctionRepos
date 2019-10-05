@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Auction.Application;
 using Auction.Application.BrandServices;
 using Auction.Application.CategoryServices;
+using Auction.Application.CityService;
+using Auction.Application.ProductServices;
 using Auction.Application.Shared;
 using Auction.Application.SubCategoryServices;
 using Auction.Application.SubCategoryServices.Dtos;
@@ -52,10 +55,12 @@ namespace Auction.WebUI
 
 
 
-            /**********************SERVICE SCOPS*****************************/
+            /**********************SERVICE SCOOPS*****************************/
             services.AddScoped<ICategoryservice, CategoryService>();
             services.AddScoped<ISubCategoryService, SubCategoryService>();
             services.AddScoped<IBrandService, BrandService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICityService, CityService>();
             /**********************sERVICE SCOPS*****************************/
 
 
@@ -64,12 +69,12 @@ namespace Auction.WebUI
             MapperConfiguration mappingConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new AutoMapperProfile());
+                
             });
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
             /****************MAPPER*****************************/
-
-
+      
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
            .AddEntityFrameworkStores<ApplicationUserDbContext>();
@@ -133,6 +138,10 @@ namespace Auction.WebUI
                 routes.MapRoute(
                     name: "Brand",
                     template: "{area:exists}/{controller=Brand}/{action=Index}/{id?}"
+                );
+                routes.MapRoute(
+                    name: "Product",
+                    template: "{area:exists}/{controller=Product}/{action=Index}/{id?}"
                 );
                 routes.MapRoute(
                     name: "default",

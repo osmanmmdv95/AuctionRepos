@@ -9,10 +9,10 @@ namespace Auction.Application.SubCategoryServices
 {
     public interface ISubCategoryService
     {
-        Task<ApplicationResult<SubCategoryDto>> Get(int id);
+        Task<ApplicationResult<SubCategoryDto>> Get(Guid id);
         Task<ApplicationResult<List<SubCategoryDto>>> GetAll();
         Task<ApplicationResult<SubCategoryDto>> Create(CreateSubCategoryViewModel model);
         Task<ApplicationResult<SubCategoryDto>> Update(UpdateSubCategoryViewModel model);
-        Task<ApplicationResult> Delete(int id);
+        Task<ApplicationResult> Delete(Guid id);
     }
 }

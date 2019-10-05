@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace Auction.Application.SubCategoryServices.Dtos
 {
-    public class SubCategoryDto : EntityDto
+    public class SubCategoryDto : EntityDto<Guid>
     {
         [DisplayName("Alt Kategori Adı")]
         public string SubCategoryName { get; set; }
@@ -19,7 +19,7 @@ namespace Auction.Application.SubCategoryServices.Dtos
         public string CategoryName { get; set; }
 
         [DisplayName("Kategori Adı")]
-        public int? CategoryId { get; set; }
+        public Guid? CategoryId { get; set; }
         public CategoryDto Category { get; set; }
     }
 }

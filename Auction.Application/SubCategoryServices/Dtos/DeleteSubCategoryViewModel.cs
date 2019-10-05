@@ -6,6 +6,6 @@ namespace Auction.Application.SubCategoryServices.Dtos
 {
     public class DeleteSubCategoryViewModel
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
     }
 }

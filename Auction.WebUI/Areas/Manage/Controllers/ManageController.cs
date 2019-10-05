@@ -9,13 +9,8 @@ using Auction.WebUI.ViewModels.Manage;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.Expressions;
-using Microsoft.IdentityModel.Xml;
-using Org.BouncyCastle.Bcpg;
-using Renci.SshNet;
+
 
 namespace Auction.WebUI.Areas.Manage.Controllers
 {

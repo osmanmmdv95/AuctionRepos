@@ -25,7 +25,7 @@ namespace Auction.Application.BrandServices
             _mapper = mapper;
         }
 
-        public async Task<ApplicationResult<BrandDto>> Get(int id)
+        public async Task<ApplicationResult<BrandDto>> Get(Guid id)
         {
             try
             {
@@ -52,23 +52,23 @@ namespace Auction.Application.BrandServices
                                        }).ToListAsync();
                 var selectBrand = brandList.Where(x => x.Id == id).FirstOrDefault();
                 BrandDto mapBrand = new BrandDto();
-            
-                    mapBrand = new BrandDto
-                    {
 
-                        SubCategoryName = selectBrand.SubCategoryName,
-                        SubCategoryId = selectBrand.SubCategoryId,
-                        Id = selectBrand.Id,
-                        BrandName = selectBrand.BrandName,
-                        BrandUrlName = selectBrand.BrandUrlName,
-                        CreatedBy = selectBrand.CreatedBy,
-                        CreatedById = selectBrand.CreatedById,
-                        CreatedDate = selectBrand.CreatedDate,
-                        ModifiedBy = selectBrand.ModifiedBy,
-                        ModifiedById = selectBrand.ModifiedById,
-                        ModifiedDate = selectBrand.ModifiedDate
+                mapBrand = new BrandDto
+                {
 
-                    };
+                    SubCategoryName = selectBrand.SubCategoryName,
+                    SubCategoryId = selectBrand.SubCategoryId,
+                    Id = selectBrand.Id,
+                    BrandName = selectBrand.BrandName,
+                    BrandUrlName = selectBrand.BrandUrlName,
+                    CreatedBy = selectBrand.CreatedBy,
+                    CreatedById = selectBrand.CreatedById,
+                    CreatedDate = selectBrand.CreatedDate,
+                    ModifiedBy = selectBrand.ModifiedBy,
+                    ModifiedById = selectBrand.ModifiedById,
+                    ModifiedDate = selectBrand.ModifiedDate
+
+                };
 
                 return new ApplicationResult<BrandDto>
                 {
@@ -181,7 +181,7 @@ namespace Auction.Application.BrandServices
             }
         }
 
-        public async Task<ApplicationResult> Delete(int id)
+        public async Task<ApplicationResult> Delete(Guid id)
         {
             try
             {

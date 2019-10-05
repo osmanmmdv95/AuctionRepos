@@ -25,8 +25,8 @@ namespace Auction.WebUI
                 }
                 return "";
             }
-            else
-                return "";
+
+            return "";
         }
     }
 }

@@ -7,10 +7,10 @@ namespace Auction.Application.ProductServices
 {
     public interface IProductService
     {
-        Task<ApplicationResult<ProductDto>> Get(int id);
+        Task<ApplicationResult<ProductDto>> Get(Guid id);
         Task<ApplicationResult<List<ProductDto>>> GetAll();
         Task<ApplicationResult<ProductDto>> Create(CreateProductViewModel model);
         Task<ApplicationResult<ProductDto>> Update(UpdateProductViewModel model);
-        Task<ApplicationResult> Delete(int id);
+        Task<ApplicationResult> Delete(Guid id);
     }
 }

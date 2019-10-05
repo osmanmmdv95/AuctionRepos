@@ -19,7 +19,7 @@ namespace Auction.EntityFramework.Migrations
 
             modelBuilder.Entity("Auction.Domain.Category.Brand", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("BrandName");
@@ -38,7 +38,7 @@ namespace Auction.EntityFramework.Migrations
 
                     b.Property<DateTime?>("ModifiedDate");
 
-                    b.Property<int?>("SubCategoryId");
+                    b.Property<Guid?>("SubCategoryId");
 
                     b.HasKey("Id");
 
@@ -49,7 +49,7 @@ namespace Auction.EntityFramework.Migrations
 
             modelBuilder.Entity("Auction.Domain.Category.Category", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("CategoryName");
@@ -75,10 +75,10 @@ namespace Auction.EntityFramework.Migrations
 
             modelBuilder.Entity("Auction.Domain.Category.SubCategory", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("CategoryId");
+                    b.Property<Guid?>("CategoryId");
 
                     b.Property<string>("CreatedBy");
 
@@ -169,6 +169,18 @@ namespace Auction.EntityFramework.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Auction.Domain.Product.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CityName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cities");
+                });
+
             modelBuilder.Entity("Auction.Domain.Product.Product", b =>
                 {
                     b.Property<Guid>("Id")
@@ -176,15 +188,13 @@ namespace Auction.EntityFramework.Migrations
 
                     b.Property<DateTime>("ActiveDateTime");
 
-                    b.Property<string>("AddProductUserId");
+                    b.Property<int?>("CityId");
 
                     b.Property<string>("CreatedBy");
 
                     b.Property<string>("CreatedById");
 
                     b.Property<DateTime>("CreatedDate");
-
-                    b.Property<string>("HighestBidderUserId");
 
                     b.Property<bool>("IsItSold");
 
@@ -194,7 +204,9 @@ namespace Auction.EntityFramework.Migrations
 
                     b.Property<DateTime?>("ModifiedDate");
 
-                    b.Property<int>("ProductCityId");
+                    b.Property<Guid?>("ProductBrandId");
+
+                    b.Property<int?>("ProductCityId");
 
                     b.Property<string>("ProductDetail");
 
@@ -208,8 +220,6 @@ namespace Auction.EntityFramework.Migrations
 
                     b.Property<decimal>("ProductKm");
 
-                    b.Property<decimal>("ProductMaxPrice");
-
                     b.Property<decimal>("ProductMinPrice");
 
                     b.Property<string>("ProductName");
@@ -218,29 +228,13 @@ namespace Auction.EntityFramework.Migrations
 
                     b.Property<DateTime>("ProductYear");
 
-                    b.Property<DateTime>("UploadDate");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("AddProductUserId");
-
-                    b.HasIndex("HighestBidderUserId");
+                    b.HasIndex("ProductBrandId");
 
                     b.HasIndex("ProductCityId");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("Auction.Domain.Product.ProductCity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CityName");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProductCities");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -366,18 +360,13 @@ namespace Auction.EntityFramework.Migrations
 
             modelBuilder.Entity("Auction.Domain.Product.Product", b =>
                 {
-                    b.HasOne("Auction.Domain.Identity.ApplicationUser", "AddProductUser")
+                    b.HasOne("Auction.Domain.Category.Brand", "Brand")
                         .WithMany()
-                        .HasForeignKey("AddProductUserId");
+                        .HasForeignKey("ProductBrandId");
 
-                    b.HasOne("Auction.Domain.Identity.ApplicationUser", "HighestBidderUser")
+                    b.HasOne("Auction.Domain.Product.City", "City")
                         .WithMany()
-                        .HasForeignKey("HighestBidderUserId");
-
-                    b.HasOne("Auction.Domain.Product.ProductCity", "ProductCity")
-                        .WithMany()
-                        .HasForeignKey("ProductCityId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ProductCityId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

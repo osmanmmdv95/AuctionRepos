@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Auction.Application;
 using Auction.Application.BrandServices;
 using Auction.Application.SubCategoryServices;
-using Auction.Application.SubCategoryServices.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -36,7 +35,7 @@ namespace Auction.WebUI.Areas.Brand.Controllers
         }
 
         [Route("/Brand/Details")]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(Guid id)
         {
             var getService = await _brandService.Get(id);
             return View(getService.Result);
@@ -84,7 +83,7 @@ namespace Auction.WebUI.Areas.Brand.Controllers
         }
 
         [Route("/Brand/Delete/{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             var getService = await _brandService.Get(id);
             return View(getService.Result);
@@ -93,7 +92,7 @@ namespace Auction.WebUI.Areas.Brand.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("/Brand/Delete/{id}")]
-        public async Task<IActionResult> Delete(int id, BrandDto model)
+        public async Task<IActionResult> Delete(Guid id, BrandDto model)
         {
             var errorReturnModel = model;
             if (ModelState.IsValid & id == model.Id)
@@ -112,7 +111,7 @@ namespace Auction.WebUI.Areas.Brand.Controllers
 
 
         [Route("/Brand/Edit/{id}")]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(Guid id)
         {
             var getService = await _brandService.Get(id);
 
@@ -139,7 +138,7 @@ namespace Auction.WebUI.Areas.Brand.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("/Brand/Edit/{id}")]
-        public async Task<IActionResult> Edit(int id, UpdateBrandViewModel model)
+        public async Task<IActionResult> Edit(Guid id, UpdateBrandViewModel model)
         {
             //Hata olursa geri dönecek model
             var errorReturnModel = model;
