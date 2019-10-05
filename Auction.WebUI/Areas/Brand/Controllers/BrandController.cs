@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Auction.Application;
 using Auction.Application.BrandServices;
+using Auction.Application.BrandServices.Dtos;
 using Auction.Application.SubCategoryServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

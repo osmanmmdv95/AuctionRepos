@@ -5,15 +5,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Auction.WebUI.Models;
+using Auction.Application.ProductServices;
 
 namespace Auction.WebUI.Controllers
 {
     public class HomeController : Controller
     {
+        
         public IActionResult Index()
         {
             return View();
         }
+
 
         public IActionResult Privacy()
         {
