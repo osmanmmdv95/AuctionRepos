@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Auction.Application.BrandServices.Dtos;
 using Auction.Domain.Category;
 using Auction.Domain.Identity;
 using Auction.EntityFramework.Context;
@@ -25,7 +26,7 @@ namespace Auction.Application.BrandServices
             _mapper = mapper;
         }
 
-        public async Task<ApplicationResult<BrandDto>> Get(int id)
+        public async Task<ApplicationResult<BrandDto>> Get(Guid id)
         {
             try
             {
@@ -52,23 +53,23 @@ namespace Auction.Application.BrandServices
                                        }).ToListAsync();
                 var selectBrand = brandList.Where(x => x.Id == id).FirstOrDefault();
                 BrandDto mapBrand = new BrandDto();
-            
-                    mapBrand = new BrandDto
-                    {
 
-                        SubCategoryName = selectBrand.SubCategoryName,
-                        SubCategoryId = selectBrand.SubCategoryId,
-                        Id = selectBrand.Id,
-                        BrandName = selectBrand.BrandName,
-                        BrandUrlName = selectBrand.BrandUrlName,
-                        CreatedBy = selectBrand.CreatedBy,
-                        CreatedById = selectBrand.CreatedById,
-                        CreatedDate = selectBrand.CreatedDate,
-                        ModifiedBy = selectBrand.ModifiedBy,
-                        ModifiedById = selectBrand.ModifiedById,
-                        ModifiedDate = selectBrand.ModifiedDate
+                mapBrand = new BrandDto
+                {
 
-                    };
+                    SubCategoryName = selectBrand.SubCategoryName,
+                    SubCategoryId = selectBrand.SubCategoryId,
+                    Id = selectBrand.Id,
+                    BrandName = selectBrand.BrandName,
+                    BrandUrlName = selectBrand.BrandUrlName,
+                    CreatedBy = selectBrand.CreatedBy,
+                    CreatedById = selectBrand.CreatedById,
+                    CreatedDate = selectBrand.CreatedDate,
+                    ModifiedBy = selectBrand.ModifiedBy,
+                    ModifiedById = selectBrand.ModifiedById,
+                    ModifiedDate = selectBrand.ModifiedDate
+
+                };
 
                 return new ApplicationResult<BrandDto>
                 {
@@ -133,6 +134,8 @@ namespace Auction.Application.BrandServices
                     listBrand.Add(mapBrand);
                 }
 
+                //var listBrand = await _context.Brands.Include(x => x.SubCategory).ToListAsync();
+
                 return new ApplicationResult<List<BrandDto>>
                 {
                     Succeeded = true,
@@ -181,7 +184,7 @@ namespace Auction.Application.BrandServices
             }
         }
 
-        public async Task<ApplicationResult> Delete(int id)
+        public async Task<ApplicationResult> Delete(Guid id)
         {
             try
             {
@@ -216,7 +219,7 @@ namespace Auction.Application.BrandServices
                         ErrorMessage = "Böyle bir Marka bulunamadı!"
                     };
                 }
-                var modifierUser = await _userManager.FindByIdAsync(model.ModifiedById);
+                var modifierUser = await _userManager.FindByIdAsync(model.CreatedById);
                 getExistBrand.ModifiedBy = modifierUser.UserName;
                 _mapper.Map(model, getExistBrand);
                 _context.Update(getExistBrand);

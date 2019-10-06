@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Auction.Application.CategoryServices.Dtos
 {
-    public class CategoryDto : EntityDto
+    public class CategoryDto : EntityDto<Guid>
     {
         [DisplayName("Kategori Adı")]
         public string CategoryName { get; set; }

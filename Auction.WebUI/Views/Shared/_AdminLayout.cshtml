@@ -18,7 +18,7 @@
     <div class="wrapper">
         <header class="main-header">
             <!-- Logo -->
-            <a asp-controller="Admin" asp-action="Index" class="logo">
+            <a asp-area="Admin" asp-controller="Admin" asp-action="Index" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>A</b>LT</span>
                 <!-- logo for regular state and mobile devices -->
@@ -124,6 +124,7 @@
                                 <li> <a asp-area="Category" asp-controller="Category" asp-action="Index"> <i class="fa fa-circle"></i> Kategori</a></li>
                                 <li> <a asp-area="SubCategory" asp-controller="SubCategory" asp-action="Index"> <i class="fa fa-circle"></i> Alt Kategori</a></li>
                                 <li> <a asp-area="Brand" asp-controller="Brand" asp-action="Index"> <i class="fa fa-circle"></i>  Marka</a></li>
+                                <li> <a asp-area="Product" asp-controller="Product" asp-action="Index"> <i class="fa fa-circle"></i>  Ürün</a></li>
 
                             </ul>
                         </li>
@@ -294,17 +295,6 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <h1>
-                    General Form Elements
-                    <small>Preview</small>
-                </h1>
-                <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li><a href="#">Forms</a></li>
-                    <li class="active">General Elements</li>
-                </ol>
-            </section>
             <!-- Main content -->
             <section class="content">
                 @RenderBody()

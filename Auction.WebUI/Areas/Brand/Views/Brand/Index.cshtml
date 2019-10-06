@@ -5,82 +5,68 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-
-<div class="box">
-    <div class="box-header with-border">
-        <h3 class="box-title">Markalar</h3>
-
-        <div class="box-tools pull-right">
-            @*<button type="button" class="btn btn-box-tool" data-widget="collapse">
-                    <i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>*@
-            <a asp-controller="Brand" asp-action="Create" class="btn btn-primary btn-flat btn-xs">Yeni Ekle</a>
-        </div>
-    </div>
-    <div class="box-body">
-        <div class="table-responsive">
-            <table id="BrandTable" class="table table-bordered table-striped table-responsive text-nowrap">
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.BrandName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.BrandUrlName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.SubCategoryName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.CreatedBy)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.CreatedDate)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.ModifiedBy)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.ModifiedDate)
-                        </th>
-                        <th>İşlemler</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.BrandName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.BrandUrlName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.SubCategoryName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CreatedBy)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CreatedDate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ModifiedBy)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ModifiedDate)
-                            </td>
-                            <td>
-                                <a asp-area="Brand" asp-controller="Brand" asp-action="Details" asp-route-Id="@item.Id" class="btn btn-xs btn-flat btn-info">Detay</a>
-                                <a asp-area="Brand" asp-controller="Brand" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-xs btn-flat btn-warning">Düzenle</a>
-                                <a asp-area="Brand" asp-controller="Brand" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-xs btn-flat btn-danger">Sil</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+<h2>Yeni Marka</h2>
+<p>
+    <a asp-area="Brand" asp-controller="Brand" asp-action="Create" class="btn btn-sm btn-flat btn-primary">Yeni Marka</a>
+</p>
+<table id="BrandTable" class="table table-bordered table-striped table-responsive">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BrandName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BrandUrlName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubCategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedDate)
+            </th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BrandName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BrandUrlName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubCategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModifiedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModifiedDate)
+                </td>
+                <td>
+                    <a asp-area="Brand" asp-controller="Brand" asp-action="Details" asp-route-Id="@item.Id" class="btn btn-xs btn-flat btn-info">Detay</a>
+                    <a asp-area="Brand" asp-controller="Brand" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-xs btn-flat btn-warning">Düzenle</a>
+                    <a asp-area="Brand" asp-controller="Brand" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-xs btn-flat btn-danger">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

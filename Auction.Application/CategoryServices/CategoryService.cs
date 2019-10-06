@@ -28,7 +28,7 @@ namespace Auction.Application.CategoryServices
         }
 
 
-        public async Task<ApplicationResult<CategoryDto>> Get(int Id)
+        public async Task<ApplicationResult<CategoryDto>> Get(Guid Id)
         {
             try
             {
@@ -105,7 +105,7 @@ namespace Auction.Application.CategoryServices
             }
         }
 
-        public async Task<ApplicationResult> Delete(int id)
+        public async Task<ApplicationResult> Delete(Guid id)
         {
             try
             {

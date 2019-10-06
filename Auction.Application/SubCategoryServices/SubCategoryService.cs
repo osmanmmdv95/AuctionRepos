@@ -26,12 +26,13 @@ namespace Auction.Application.SubCategoryServices
             _mapper = mapper;
         }
 
-        public async Task<ApplicationResult<SubCategoryDto>> Get(int id)
+        public async Task<ApplicationResult<SubCategoryDto>> Get(Guid id)
         {
             try
             {
                 //SubCategory subCategory = await _context.SubCategories.FindAsync(id);
                 //SubCategoryDto mapSubCategory = _mapper.Map<SubCategoryDto>(subCategory);
+
                 var SubCategoryList = await (from s in _context.SubCategories
                                              join c in _context.Categories on s.CategoryId equals c.Id
                                              select new
@@ -50,26 +51,26 @@ namespace Auction.Application.SubCategoryServices
                                                  s.ModifiedDate
 
                                              }).ToListAsync();
-                var selectSubCategory= SubCategoryList.Where(x=>x.Id == id).FirstOrDefault();
+                var selectSubCategory = SubCategoryList.Where(x => x.Id == id).FirstOrDefault();
 
                 SubCategoryDto mapSubCategory = new SubCategoryDto();
-           
-                    mapSubCategory = new SubCategoryDto
-                    {
-                        Id = selectSubCategory.Id,
-                        CategoryName = selectSubCategory.CategoryName,
-                        CategoryId = selectSubCategory.CategoryId,
-                        SubCategoryName = selectSubCategory.SubCategoryName,
-                        SubCategoryUrlName = selectSubCategory.SubCategoryUrlName,
-                        CreatedBy = selectSubCategory.CreatedBy,
-                        CreatedById = selectSubCategory.CreatedById,
-                        CreatedDate = selectSubCategory.CreatedDate,
-                        ModifiedBy = selectSubCategory.ModifiedBy,
-                        ModifiedById = selectSubCategory.ModifiedById,
-                        ModifiedDate = selectSubCategory.ModifiedDate
 
-                    };
-              
+                mapSubCategory = new SubCategoryDto
+                {
+                    Id = selectSubCategory.Id,
+                    CategoryName = selectSubCategory.CategoryName,
+                    CategoryId = selectSubCategory.CategoryId,
+                    SubCategoryName = selectSubCategory.SubCategoryName,
+                    SubCategoryUrlName = selectSubCategory.SubCategoryUrlName,
+                    CreatedBy = selectSubCategory.CreatedBy,
+                    CreatedById = selectSubCategory.CreatedById,
+                    CreatedDate = selectSubCategory.CreatedDate,
+                    ModifiedBy = selectSubCategory.ModifiedBy,
+                    ModifiedById = selectSubCategory.ModifiedById,
+                    ModifiedDate = selectSubCategory.ModifiedDate
+
+                };
+
 
                 return new ApplicationResult<SubCategoryDto>
                 {
@@ -181,7 +182,7 @@ namespace Auction.Application.SubCategoryServices
 
         }
 
-        public async Task<ApplicationResult> Delete(int id)
+        public async Task<ApplicationResult> Delete(Guid id)
         {
             try
             {

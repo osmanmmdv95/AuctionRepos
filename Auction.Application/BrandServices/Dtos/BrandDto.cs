@@ -6,7 +6,7 @@ using Auction.Domain.Category;
 
 namespace Auction.Application.BrandServices
 {
-    public class BrandDto : EntityDto
+    public class BrandDto : EntityDto<Guid>
     {
         [DisplayName("Marka")]
         public string BrandName { get; set; }
@@ -19,7 +19,7 @@ namespace Auction.Application.BrandServices
         public string SubCategoryName { get; set; }
 
         [DisplayName("Alt Kategori Adı")]
-        public int? SubCategoryId { get; set; }
+        public Guid? SubCategoryId { get; set; }
 
         [DisplayName("Alt Kategori")]
         public virtual SubCategory SubCategory { get; set; }

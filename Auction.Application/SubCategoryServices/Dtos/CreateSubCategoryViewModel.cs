@@ -16,6 +16,6 @@ namespace Auction.Application.SubCategoryServices.Dtos
         [Required(ErrorMessage = "Alt kategori url alanı zorunludur!")]
         public string SubCategoryUrlName { get; set; }
         public string CreatedById { get; set; }
-        public int? CategoryId { get; set; }
+        public Guid? CategoryId { get; set; }
     }
 }

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Auction.EntityFramework.Migrations
 {
     [DbContext(typeof(ApplicationUserDbContext))]
-    [Migration("20190923204533_AddColumnsUserTable")]
-    partial class AddColumnsUserTable
+    [Migration("20191003213841_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,6 +18,92 @@ namespace Auction.EntityFramework.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("Auction.Domain.Category.Brand", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("BrandName");
+
+                    b.Property<string>("BrandUrlName");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<string>("CreatedById");
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<string>("ModifiedBy");
+
+                    b.Property<string>("ModifiedById");
+
+                    b.Property<DateTime?>("ModifiedDate");
+
+                    b.Property<Guid?>("SubCategoryId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubCategoryId");
+
+                    b.ToTable("Brands");
+                });
+
+            modelBuilder.Entity("Auction.Domain.Category.Category", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CategoryName");
+
+                    b.Property<string>("CategoryUrlName");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<string>("CreatedById");
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<string>("ModifiedBy");
+
+                    b.Property<string>("ModifiedById");
+
+                    b.Property<DateTime?>("ModifiedDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("Auction.Domain.Category.SubCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid?>("CategoryId");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<string>("CreatedById");
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<string>("ModifiedBy");
+
+                    b.Property<string>("ModifiedById");
+
+                    b.Property<DateTime?>("ModifiedDate");
+
+                    b.Property<string>("SubCategoryName");
+
+                    b.Property<string>("SubCategoryUrlName");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("SubCategories");
+                });
 
             modelBuilder.Entity("Auction.Domain.Identity.ApplicationUser", b =>
                 {
@@ -60,8 +146,18 @@ namespace Auction.EntityFramework.Migrations
 
                     b.Property<bool>("TwoFactorEnabled");
 
+                    b.Property<string>("UserAddress");
+
+                    b.Property<string>("UserDetail");
+
+                    b.Property<string>("UserImageUrl");
+
+                    b.Property<bool>("UserIsActive");
+
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
+
+                    b.Property<string>("UserPhoneNumber");
 
                     b.HasKey("Id");
 
@@ -73,6 +169,72 @@ namespace Auction.EntityFramework.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Auction.Domain.Product.Product", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("ActiveDateTime");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<string>("CreatedById");
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<bool>("IsItSold");
+
+                    b.Property<string>("ModifiedBy");
+
+                    b.Property<string>("ModifiedById");
+
+                    b.Property<DateTime?>("ModifiedDate");
+
+                    b.Property<Guid?>("ProductBrandId");
+
+                    b.Property<Guid?>("ProductCityId");
+
+                    b.Property<string>("ProductDetail");
+
+                    b.Property<string>("ProductFuelType");
+
+                    b.Property<string>("ProductGearType");
+
+                    b.Property<string>("ProductImageUrl");
+
+                    b.Property<bool>("ProductIsActive");
+
+                    b.Property<decimal>("ProductKm");
+
+                    b.Property<decimal>("ProductMinPrice");
+
+                    b.Property<string>("ProductName");
+
+                    b.Property<decimal>("ProductPrice");
+
+                    b.Property<DateTime>("ProductYear");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductBrandId");
+
+                    b.HasIndex("ProductCityId");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Auction.Domain.Product.ProductCity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CityName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductCities");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -180,6 +342,31 @@ namespace Auction.EntityFramework.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Auction.Domain.Category.Brand", b =>
+                {
+                    b.HasOne("Auction.Domain.Category.SubCategory", "SubCategory")
+                        .WithMany()
+                        .HasForeignKey("SubCategoryId");
+                });
+
+            modelBuilder.Entity("Auction.Domain.Category.SubCategory", b =>
+                {
+                    b.HasOne("Auction.Domain.Category.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId");
+                });
+
+            modelBuilder.Entity("Auction.Domain.Product.Product", b =>
+                {
+                    b.HasOne("Auction.Domain.Category.Brand", "Brand")
+                        .WithMany()
+                        .HasForeignKey("ProductBrandId");
+
+                    b.HasOne("Auction.Domain.Product.ProductCity", "ProductCity")
+                        .WithMany()
+                        .HasForeignKey("ProductCityId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
