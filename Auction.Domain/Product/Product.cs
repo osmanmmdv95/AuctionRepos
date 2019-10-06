@@ -29,7 +29,7 @@ namespace Auction.Domain.Product
         public virtual Guid? ProductBrandId { get; set; }
 
 
-        [ForeignKey("CityId")]
+        [ForeignKey("ProductCityId")]
         public virtual City City { get; set; }
         public virtual int? CityId { get; set; }
 
