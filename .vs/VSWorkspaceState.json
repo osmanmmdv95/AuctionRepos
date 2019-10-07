@@ -3,9 +3,8 @@
     "",
     "\\Auction.WebUI",
     "\\Auction.WebUI\\Views",
-    "\\Auction.WebUI\\Views\\Account",
     "\\Auction.WebUI\\Views\\Shared"
   ],
-  "SelectedNode": "\\Auction.WebUI\\Views\\Shared\\_Layout.cshtml",
+  "SelectedNode": "\\AuctionRepos.sln",
   "PreviewInSolutionExplorer": false
 }

@@ -5,154 +5,159 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>@Model.ProductName Detayları</h2>
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title">@Model.ProductName Detayları</h3>
+    </div>
 
-<div>
+    <div class="box-body">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ProductName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductIsActive)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ProductIsActive)
+            </dd>
 
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ProductName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductIsActive)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ProductIsActive)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ActiveDateTime)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ActiveDateTime)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.IsItSold)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.IsItSold)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductPrice)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ProductPrice)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductYear)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ProductYear)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductKm)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ProductKm)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductMinPrice)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ProductMinPrice)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductGearType)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ProductGearType)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductFuelType)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ProductFuelType)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductImageUrl)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ProductImageUrl)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductDetail)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ProductDetail)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.BrandName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.BrandName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductBrandId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ProductBrandId)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CityName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CityName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductCityId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ProductCityId)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Id)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CreatedDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ModifiedDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ModifiedDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CreatedBy)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedById)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CreatedById)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ModifiedBy)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ModifiedBy)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ModifiedById)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ModifiedById)
+            </dd>
+        </dl>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ActiveDateTime)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ActiveDateTime)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IsItSold)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IsItSold)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductPrice)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ProductPrice)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductYear)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ProductYear)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductKm)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ProductKm)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductMinPrice)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ProductMinPrice)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductGearType)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ProductGearType)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductFuelType)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ProductFuelType)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductImageUrl)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ProductImageUrl)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductDetail)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ProductDetail)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.BrandName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.BrandName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductBrandId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ProductBrandId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CityName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CityName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductCityId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ProductCityId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ModifiedDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ModifiedDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedBy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedById)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedById)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ModifiedBy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ModifiedBy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ModifiedById)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ModifiedById)
-        </dd>
-    </dl>
+        <div>
+            <a asp-area="Product" asp-controller="Product" asp-action="Edit" asp-route-Id="@Model.Id" class="btn btn-xs btn-flat btn-warning">Düzenle</a> |
+            <a asp-action="Index">Listeye dön</a>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-area="Product" asp-controller="Product" asp-action="Edit" asp-route-Id="@Model.Id" class="btn btn-sm btn-flat btn-warning">Düzenle</a> |
-    <a asp-action="Index">Listeye dön</a>
-</div>
+
+
