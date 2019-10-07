@@ -46,7 +46,7 @@ namespace Auction.WebUI.Areas.Product.Controllers
             return View(getService.Result);
         }
 
-        [Route("/Product/Create")]
+        [Route("Product/Create")]
         public async Task<IActionResult> Create()
         {
             var brandList = await _brandService.GetAll();
@@ -72,7 +72,7 @@ namespace Auction.WebUI.Areas.Product.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("/Product/Create")]
+        [Route("Product/Create")]
         public async Task<IActionResult> Create(CreateProductViewModel model)
         {
             var returnErrorModel = model;
@@ -152,7 +152,7 @@ namespace Auction.WebUI.Areas.Product.Controllers
                 ProductPrice = getService.Result.ProductPrice,
                 ProductKm = getService.Result.ProductKm,
                 ProductYear = getService.Result.ProductYear,
-                CityId = getService.Result.CityId,
+                ProductCityId = getService.Result.ProductCityId,
                 ProductBrandId = getService.Result.ProductBrandId
 
             };

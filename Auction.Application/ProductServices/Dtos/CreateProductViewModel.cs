@@ -19,9 +19,9 @@ namespace Auction.Application.ProductServices
 
         [DisplayName("Ürün Yılı")]
         [Required(ErrorMessage = "Ürün yılı zorunludur!")]
+        [StringLength(4, ErrorMessage ="{0} {1} haneli rakam olabilir!",MinimumLength =4)]
 
-        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
-        public DateTime ProductYear { get; set; }
+        public int? ProductYear { get; set; }
 
         [DisplayName("Km")]
         [Required(ErrorMessage = "Ürün km zorunludur!")]
@@ -47,8 +47,8 @@ namespace Auction.Application.ProductServices
         [Required(ErrorMessage = "Lütfen ürün açıklaması giriniz.")]
         public string ProductDetail { get; set; }
 
-        [DisplayName("Markası")]
-        public virtual Brand Brand { get; set; }
+        //[DisplayName("Markası")]
+        //public virtual Brand Brand { get; set; }
 
         [DisplayName("Markası")]
         [Required]
@@ -59,7 +59,7 @@ namespace Auction.Application.ProductServices
         public string CreatedById { get; set; }
 
         [DisplayName("Şehir")]
-        public virtual int? CityId { get; set; }
+        public virtual int? ProductCityId { get; set; }
 
     }
 }

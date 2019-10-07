@@ -27,7 +27,7 @@ namespace Auction.Application.ProductServices
         public decimal ProductPrice { get; set; }
 
         [DisplayName("Ürün Yılı")]
-        public DateTime ProductYear { get; set; }
+        public int? ProductYear { get; set; }
 
         [DisplayName("Km")]
         public decimal ProductKm { get; set; }
@@ -64,7 +64,7 @@ namespace Auction.Application.ProductServices
         public string CityName { get; set; }
 
         [DisplayName("Şehir")]
-        public virtual int? CityId { get; set; }
+        public virtual int? ProductCityId { get; set; }
 
 
     }

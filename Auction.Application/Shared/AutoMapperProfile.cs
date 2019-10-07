@@ -88,15 +88,15 @@ namespace Auction.Application.Shared
 
             /****************************Product MAPPER***********************************************/
             CreateMap<ProductDto, Product>();
-            CreateMap<Product, ProductDto>()
-                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
-                .ForMember(x => x.ModifiedBy, opt => opt.Ignore())
-                .ForMember(x => x.ModifiedById, opt => opt.Ignore())
-                .ForMember(x => x.CreatedDate, opt => opt.Ignore())
-                .ForMember(x => x.ModifiedDate, opt => opt.Ignore())
-                .ForMember(x => x.ProductIsActive, opt => opt.Ignore())
-                .ForMember(x => x.ActiveDateTime, opt => opt.Ignore())
-                .ForMember(x => x.IsItSold, opt => opt.Ignore());
+            CreateMap<Product, ProductDto>();
+            //.ForMember(x => x.CreatedBy, opt => opt.Ignore())
+            //.ForMember(x => x.ModifiedBy, opt => opt.Ignore())
+            //.ForMember(x => x.ModifiedById, opt => opt.Ignore())
+            //.ForMember(x => x.CreatedDate, opt => opt.Ignore())
+            //.ForMember(x => x.ModifiedDate, opt => opt.Ignore())
+            //.ForMember(x => x.ProductIsActive, opt => opt.Ignore())
+            //.ForMember(x => x.ActiveDateTime, opt => opt.Ignore())
+            //.ForMember(x => x.IsItSold, opt => opt.Ignore());
 
             CreateMap<CreateProductViewModel, Product>()
                 .ForMember(x => x.Id, opt => opt.Ignore())

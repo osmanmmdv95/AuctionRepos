@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Auction.Domain.Category;
-using Auction.Domain.Identity;
 using Auction.Domain.Shared;
 
 namespace Auction.Domain.Product
@@ -16,7 +15,7 @@ namespace Auction.Domain.Product
         public bool IsItSold { get; set; }
 
         public decimal ProductPrice { get; set; }
-        public DateTime ProductYear { get; set; }
+        public int? ProductYear { get; set; }
         public decimal ProductKm { get; set; }
         public decimal ProductMinPrice { get; set; }
         public string ProductGearType { get; set; }
@@ -31,7 +30,7 @@ namespace Auction.Domain.Product
 
         [ForeignKey("ProductCityId")]
         public virtual City City { get; set; }
-        public virtual int? CityId { get; set; }
+        public virtual int? ProductCityId { get; set; }
 
 
     }

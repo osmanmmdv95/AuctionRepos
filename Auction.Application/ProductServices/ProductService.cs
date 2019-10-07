@@ -106,19 +106,18 @@ namespace Auction.Application.ProductServices
         {
             try
             {
-
                 var listProduct = await _context.Products.Include(b => b.Brand).Include(c => c.City).ToListAsync();
 
                 List<ProductDto> mapProduct = _mapper.Map<List<ProductDto>>(listProduct);
 
-                foreach (var item in listProduct)
+                int i = 0;
+                foreach (var item in mapProduct)
                 {
-                    foreach (var i in mapProduct)
-                    {
-                        i.CityName = item.City.CityName;
-                        i.BrandName = item.Brand.BrandName;
-                    }
+                    item.CityName = listProduct[i].City.CityName;
+                    item.BrandName = listProduct[i].Brand.BrandName;
+                    i++;
                 }
+
 
                 return new ApplicationResult<List<ProductDto>>
                 {
@@ -144,12 +143,16 @@ namespace Auction.Application.ProductServices
                 var willUpdate = await _context.Products.FindAsync(model.Id);
                 if (willUpdate != null)
                 {
-                    var modifierUser = await _userManager.FindByIdAsync(model.CreatedById);
+                    var modifierUser = await _userManager.FindByIdAsync(model.ModifiedById);
                     willUpdate.ModifiedBy = modifierUser.UserName;
                     _mapper.Map(model, willUpdate);
                     _context.Products.Update(willUpdate);
                     await _context.SaveChangesAsync();
-                    return await Get(willUpdate.Id);
+                    return new ApplicationResult<ProductDto>
+                    {
+                        Succeeded = true,
+
+                    };
                 }
 
                 return new ApplicationResult<ProductDto> { Succeeded = false, ErrorMessage = "Bir hata oluştu lütfen kontrol edip tekrar deneyiniz" };
@@ -163,6 +166,7 @@ namespace Auction.Application.ProductServices
                     ErrorMessage = e.Message
                 };
             }
+            return new ApplicationResult<ProductDto>();
         }
     }
 }
