@@ -5,55 +5,58 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>@Model.SubCategoryName Sil</h2>
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title">@Model.SubCategoryName Sil</h3>
+    </div>
+    <div class="box-body">
+        <h4>Bu alt kategoriyi silmek istediğinize emin misiniz?</h4>
+        <div>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.SubCategoryName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.SubCategoryName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.CategoryId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CategoryId)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreatedBy)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CreatedBy)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreatedDate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CreatedDate)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ModifiedBy)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ModifiedBy)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ModifiedDate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ModifiedDate)
+                </dd>
 
-<h3>Bu alt kategoriyi silmek istediğinize emin misiniz?</h3>
+            </dl>
 
-<div>
-   
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.SubCategoryName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.SubCategoryName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CategoryId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CategoryId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedBy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ModifiedBy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ModifiedBy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ModifiedDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ModifiedDate)
-        </dd>
-
-    </dl>
-
-    <form asp-action="Delete">
-        <input type="submit" value="Sil" class="btn btn-sm btn-flat btn-danger" /> |
-        <a asp-action="Index">Listeye dön</a>
-    </form>
+            <form asp-action="Delete">
+                <input type="submit" value="Sil" class="btn btn-sm btn-flat btn-danger" /> |
+                <a asp-action="Index">Listeye dön</a>
+            </form>
+        </div>
+    </div>
 </div>

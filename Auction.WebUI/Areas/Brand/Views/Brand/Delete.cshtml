@@ -5,61 +5,65 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>@Model.BrandName Sil</h2>
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title">@Model.BrandName Sil</h3>
+    </div>
+    <div class="box-body">
+        <h4>Bu markayı silmek istediğinize emin misiniz?</h4>
+        <div>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.BrandName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.BrandName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.BrandUrlName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.BrandUrlName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.SubCategoryName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.SubCategoryName)
+                </dd>
 
-<h3>Bu markayı silmek istediğinize emin misiniz?</h3>
-<div>
-  
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.BrandName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.BrandName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.BrandUrlName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.BrandUrlName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.SubCategoryName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.SubCategoryName)
-        </dd>
-  
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedBy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ModifiedBy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ModifiedBy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ModifiedDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ModifiedDate)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreatedBy)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CreatedBy)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreatedDate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CreatedDate)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ModifiedBy)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ModifiedBy)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ModifiedDate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ModifiedDate)
+                </dd>
 
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="submit" value="Sil" class="btn btn-sm btn-flat btn-danger" /> |
-        <a asp-action="Index">Listeye dön</a>
-    </form>
+            </dl>
+
+            <form asp-action="Delete">
+                <input type="submit" value="Sil" class="btn btn-sm btn-flat btn-danger" /> |
+                <a asp-action="Index">Listeye dön</a>
+            </form>
+        </div>
+    </div>
 </div>

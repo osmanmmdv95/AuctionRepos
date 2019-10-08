@@ -5,43 +5,52 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>@Model.SubCategoryName Düzenle</h2>
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title">@Model.SubCategoryName Düzenle</h3>
+    </div>
 
-
-<hr />
-<div class="row">
-    <div class="col-md-4">
+    <div class="box-body">
         <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="SubCategoryName" class="control-label"></label>
-                <input asp-for="SubCategoryName" class="form-control" />
-                <span asp-validation-for="SubCategoryName" class="text-danger"></span>
+            <div class="row">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="SubCategoryName" class="control-label"></label>
+                        <input asp-for="SubCategoryName" class="form-control" />
+                        <span asp-validation-for="SubCategoryName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="SubCategoryUrlName" class="control-label"></label>
+                        <input asp-for="SubCategoryUrlName" class="form-control" />
+                        <span asp-validation-for="SubCategoryUrlName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="CategoryId" class="control-label"></label>
+                        <select asp-for="CategoryId" asp-items="ViewBag.CategoryDDL" class="form-control"></select>
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <input asp-for="Id" type="hidden" />
+                    <input asp-for="CreatedById" type="hidden" />
+                    <input asp-for="ModifiedById" type="hidden" />
+                    <div class="form-group">
+                        <input type="submit" value="Güncelle" class="btn btn-sm btn-flat btn-success" />
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="SubCategoryUrlName" class="control-label"></label>
-                <input asp-for="SubCategoryUrlName" class="form-control" />
-                <span asp-validation-for="SubCategoryUrlName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" asp-items="ViewBag.CategoryDDL" class="form-control"></select>
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
-            </div>
-
-            <input asp-for="Id" type="hidden" />
-            <input asp-for="CreatedById" type="hidden" />
-            <input asp-for="ModifiedById" type="hidden" />
-            <div class="form-group">
-                <input type="submit" value="Güncelle" class="btn btn-sm btn-flat btn-success"  />
+            <div>
+                <a asp-action="Index">Listeye dön</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Listeye dön</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -12,7 +12,7 @@
             <div class="box box-widget widget-user" style="border:1px solid #d3d3d3">
 
                 <img src="@item.ProductImageUrl" class="card-img-top" width="348" height="200" />
-                <div class="box-footer" style="padding-top:5px" id="@item.Id" @*id="footer-info"*@>
+                <div class="box-footer" style="padding-top:5px" id="@item.Id" @*id="footer-info" *@>
                     <p style="text-align:center; font-size:20px">@item.BrandName.ToUpper() &nbsp; <strong style="margin-top:0px; font-weight:bold"> @item.ProductName.ToUpper()</strong></p>
                     <div class="row">
                         <div class="col-sm-12">
@@ -45,27 +45,160 @@
 
                     <div class="col-md-12" id="incele-@item.Id" style="position:absolute; bottom:0px; padding-bottom:5px; padding-top:5px;
                                                 left:0px; display:none; background-color:#000000; opacity:0.7">
+                        @*asp-area="Product" asp-controller="Product" asp-action="Details" asp-route-Id="@item.Id" asp-route-returnUrl="@returnUrl"*@
+                        <a data-toggle="modal" data-target="@String.Concat("#product_view", item.Id)" class="btn btn-link btn-block text-light"><i class="fa fa-search"></i>İNCELE</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                        <a asp-area="Product" asp-controller="Product" asp-action="Details" asp-route-Id="@item.Id" asp-route-returnUrl="@returnUrl" class="btn btn-link btn-block text-light"><i class="fa fa-search"></i>İNCELE</a>
+        <div class="modal fade product_view" id="@String.Concat("product_view", item.Id)">
+            <div class="modal-dialog" style="width:1000px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove"></span></a>
+                        <h4 class="modal-title">@item.BrandName @item.ProductName</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6 product_img">
+                                <img src="@item.ProductImageUrl" class="img-responsive" height="350">
+                            </div>
+                            <div class="col-md-6 product_content">
+                                <h4>Product Id: <span>@item.Id</span></h4>
+                                <div class="rating">
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    (10 reviews)
+                                </div>
+                                <p>@item.ProductDetail</p>
+                                <h3 class="cost"><span class="glyphicon glyphicon-usd"></span> @item.ProductPrice <small class="pre-cost"><span class="glyphicon glyphicon-usd"></span> @item.ProductMinPrice</small></h3>
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                        <select class="form-control" name="select">
+                                            <option value="" selected="">Color</option>
+                                            <option value="black">Black</option>
+                                            <option value="white">White</option>
+                                            <option value="gold">Gold</option>
+                                            <option value="rose gold">Rose Gold</option>
+                                        </select>
+                                    </div>
+                                    <!-- end col -->
+                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                        <select class="form-control" name="select">
+                                            <option value="">Capacity</option>
+                                            <option value="">16GB</option>
+                                            <option value="">32GB</option>
+                                            <option value="">64GB</option>
+                                            <option value="">128GB</option>
+                                        </select>
+                                    </div>
+                                    <!-- end col -->
+                                    <div class="col-md-4 col-sm-12">
+                                        <select class="form-control" name="select">
+                                            <option value="" selected="">QTY</option>
+                                            <option value="">1</option>
+                                            <option value="">2</option>
+                                            <option value="">3</option>
+                                        </select>
+                                    </div>
+                                    <!-- end col -->
+                                </div>
+                                <div class="space-ten"></div>
+                                <hr />
+                                <div class="btn-ground">
+                                    <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart</button>
+                                    <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-heart"></span> Add To Wishlist</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     }
 </div>
+
+<div class="modal fade product_view" id="product_view">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove"></span></a>
+                <h3 class="modal-title">HTML5 is a markup language</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 product_img">
+                        <img src="http://img.bbystatic.com/BestBuy_US/images/products/5613/5613060_sd.jpg" class="img-responsive">
+                    </div>
+                    <div class="col-md-6 product_content">
+                        <h4>Product Id: <span>51526</span></h4>
+                        <div class="rating">
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            (10 reviews)
+                        </div>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                        <h3 class="cost"><span class="glyphicon glyphicon-usd"></span> 75.00 <small class="pre-cost"><span class="glyphicon glyphicon-usd"></span> 60.00</small></h3>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <select class="form-control" name="select">
+                                    <option value="" selected="">Color</option>
+                                    <option value="black">Black</option>
+                                    <option value="white">White</option>
+                                    <option value="gold">Gold</option>
+                                    <option value="rose gold">Rose Gold</option>
+                                </select>
+                            </div>
+                            <!-- end col -->
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <select class="form-control" name="select">
+                                    <option value="">Capacity</option>
+                                    <option value="">16GB</option>
+                                    <option value="">32GB</option>
+                                    <option value="">64GB</option>
+                                    <option value="">128GB</option>
+                                </select>
+                            </div>
+                            <!-- end col -->
+                            <div class="col-md-4 col-sm-12">
+                                <select class="form-control" name="select">
+                                    <option value="" selected="">QTY</option>
+                                    <option value="">1</option>
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                </select>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <div class="space-ten"></div>
+                        <div class="btn-ground">
+                            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart</button>
+                            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-heart"></span> Add To Wishlist</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="~/js/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         var id;
         $(".box-footer").mouseover(function () {
             id = $(this).attr('id');
-
             $("#incele-" + id).slideDown();
         });
         $(".box-footer").mouseleave(function () {
-            //id = $(this).attr('id');
             $("#incele-" + id).slideUp();
-            console.log(id);
         });
     });
 </script>

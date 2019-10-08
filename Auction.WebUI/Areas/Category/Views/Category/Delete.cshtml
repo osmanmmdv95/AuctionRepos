@@ -5,69 +5,72 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>@Model.CategoryName Sil</h2>
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title">@Model.CategoryName Sil</h3>
+    </div>
+    <div class="box-body">
+        <h4>Bu kategoriyi silmek istediğinize emin misiniz?</h4>
+        @if (ViewBag.DeleteError != null)
+        {
+            <h1 class="text-danger">@ViewBag.DeleteError</h1>
+        }
+        <div>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.CategoryName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CategoryName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.CategoryUrlName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CategoryUrlName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreatedBy)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CreatedBy)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreatedDate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CreatedDate)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ModifiedBy)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ModifiedBy)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ModifiedDate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ModifiedDate)
+                </dd>
+                <dd>
+                    @Html.HiddenFor(model => model.Id, new { id = "HiddenID" })
+                </dd>
+            </dl>
 
-<h3>Bu kategoriyi silmek istediğinize emin misiniz?</h3>
-
-@if (ViewBag.DeleteError != null)
-{
-<h1 class="text-danger">@ViewBag.DeleteError</h1> 
-
-}
-<div>
-    
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CategoryName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CategoryName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CategoryUrlName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CategoryUrlName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedBy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ModifiedBy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ModifiedBy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ModifiedDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ModifiedDate)
-        </dd>
-        <dd>
-            @Html.HiddenFor(model => model.Id,new { id = "HiddenID" })
-        </dd>
-    </dl>
-
-    <form asp-action="Delete">
-    @if (ViewBag.DeleteError != null)
-    {
-        <input id="btnDelete" type="submit" value="Sil" disabled class="btn btn-sm btn-flat btn-danger"/>
-    }
-    else
-    {
-        <input id="btnDelete" type="submit" value="Sil" class="btn btn-sm btn-flat btn-danger"/>
-    }|
-        <a asp-action="Index">Back to List</a>
-    </form>
+            <form asp-action="Delete">
+                @if (ViewBag.DeleteError != null)
+                {
+                    <input id="btnDelete" type="submit" value="Sil" disabled class="btn btn-sm btn-flat btn-danger" />
+                }
+                else
+                {
+                    <input id="btnDelete" type="submit" value="Sil" class="btn btn-sm btn-flat btn-danger" />
+                }|
+                <a asp-action="Index">Back to List</a>
+            </form>
+        </div>
+    </div>
 </div>
+

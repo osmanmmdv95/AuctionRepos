@@ -5,33 +5,41 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Yeni Kategori</h2>
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title">Yeni Kategori</h3>
+    </div>
 
-
-<hr />
-<div class="row">
-    <div class="col-md-4">
+    <div class="box-body">
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="CategoryName" class="control-label"></label>
-                <input asp-for="CategoryName" class="form-control" />
-                <span asp-validation-for="CategoryName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoryUrlName" class="control-label"></label>
-                <input asp-for="CategoryUrlName" class="form-control" />
-                <span asp-validation-for="CategoryUrlName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Kaydet" class="btn btn-sm btn-success btn-sm btn-flat" />
+            <div class="row">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="CategoryName" class="control-label"></label>
+                        <input asp-for="CategoryName" class="form-control" />
+                        <span asp-validation-for="CategoryName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="CategoryUrlName" class="control-label"></label>
+                        <input asp-for="CategoryUrlName" class="form-control" />
+                        <span asp-validation-for="CategoryUrlName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="submit" value="Kaydet" class="btn btn-sm btn-success btn-sm btn-flat" />
+                    </div>
+                </div>
             </div>
         </form>
-    </div>
-</div>
 
-<div>
-    <a asp-action="Index">Listeye Dön</a>
+        <div>
+            <a asp-action="Index">Listeye Dön</a>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
