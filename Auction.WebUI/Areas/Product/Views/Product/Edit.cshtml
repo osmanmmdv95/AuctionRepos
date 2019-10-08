@@ -1,17 +1,18 @@
-﻿@model Auction.Application.ProductServices.CreateProductViewModel
+﻿@model Auction.Application.ProductServices.UpdateProductViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+
 <div class="box">
     <div class="box-header with-border">
-        <h3 class="box-title">Yeni Ürün</h3>
+        <h3 class="box-title">@Model.ProductName Düzenle</h3>
     </div>
 
     <div class="box-body">
-        <form asp-action="Create" enctype="multipart/form-data" method="post">
+        <form asp-action="Edit" enctype="multipart/form-data" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row">
                 <div class="col-md-12 col-sm-12">
@@ -73,12 +74,29 @@
                         </div>
 
                     </div>
+                    <input asp-for="CreatedById" type="hidden" />
                     <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
                     <br />
                     <div class="form-group">
                         <div>
-                            <input type="submit" value="Kaydet" class="btn btn-md btn-flat btn-success center-block" />
-                            <a href="@ViewBag.ReturnUrl">Geri dön</a>
+                            <input type="submit" value="Güncelle" class="btn btn-md btn-flat btn-success center-block" />
+                            @if (@ViewBag.ReturnUrl != null && @ViewBag.ReturnUrl != string.Empty)
+                            {
+                                <h4><a href="@ViewBag.ReturnUrl">Geri dön</a></h4>
+                            }
+                            else
+                            {
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <h4><a asp-action="Index">Geri dön</a></h4>
+                                }
+                                else
+                                {
+                                    <h4><a asp-controller="Home" asp-action="Index">Geri dön</a></h4>
+                                }
+
+                            }
+
                         </div>
                     </div>
                 </div>
@@ -86,8 +104,6 @@
         </form>
     </div>
 </div>
-
-
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

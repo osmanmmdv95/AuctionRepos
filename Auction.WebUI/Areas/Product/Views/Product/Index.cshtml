@@ -1,95 +1,105 @@
 ﻿@model IEnumerable<Auction.Application.ProductServices.ProductDto>
+@using Microsoft.AspNetCore.Http.Extensions
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var returnUrl = @Context.Request.GetEncodedPathAndQuery();
 }
 
-<h2>Ürünler</h2>
+<div class="box">
+    <div class="box-header with-border">
+        <h1 class="box-title"><b>Ürünler</b></h1>
 
-<p>
-    <a asp-area="Product" asp-controller="Product" asp-action="Create" class="btn btn-sm btn-flat btn-primary">Yeni Marka</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductName)
-            </th>
-            
-            <th>
-                @Html.DisplayNameFor(model => model.ProductPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductYear)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductKm)
-            </th>
-         
-            <th>
-                @Html.DisplayNameFor(model => model.ProductGearType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductFuelType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductImageUrl)
-            </th>
-     
-            <th>
-                @Html.DisplayNameFor(model => model.BrandName)
-            </th>
-  
-            <th>
-                @Html.DisplayNameFor(model => model.CityName)
-            </th>
-            
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
-            </td>
+        <div class="box-tools pull-right">
+            <a asp-area="Product" asp-controller="Product" asp-action="Create" class="btn btn-sm btn-flat btn-primary">Yeni Ürün</a>
+        </div>
+    </div>
+    <div class="box-body">
+        <div class="table-responsive">
+            <table id="productTable" class="table table-sm table-bordered table-striped text-nowrap">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductImageUrl)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.BrandName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductName)
+                        </th>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductYear)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductKm)
-            </td>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductPrice)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductYear)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductKm)
+                        </th>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductGearType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductFuelType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductImageUrl)
-            </td>
-      
-            <td>
-                @Html.DisplayFor(modelItem => item.BrandName)
-            </td>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductGearType)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductFuelType)
+                        </th>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.CityName)
-            </td>
-   
+                        <th>
+                            @Html.DisplayNameFor(model => model.CityName)
+                        </th>
 
-            <td>
-                <a asp-area="Product" asp-controller="Product" asp-action="Details" asp-route-Id="@item.Id" class="btn btn-xs btn-flat btn-info">Detay</a>
-                <a asp-area="Product" asp-controller="Product" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-xs btn-flat btn-warning">Düzenle</a>
-                <a asp-area="Product" asp-controller="Product" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-xs btn-flat btn-danger">Sil</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @*@Html.DisplayFor(modelItem => item.ProductImageUrl)*@
+                                <img src="@item.ProductImageUrl" style="height:100px" width="150px" />
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BrandName)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductName)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductPrice)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductYear)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductKm)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductGearType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductFuelType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CityName)
+                            </td>
+
+                            <td>
+                                <a asp-area="Product" asp-controller="Product" asp-action="Details" asp-route-Id="@item.Id" asp-route-returnUrl="@returnUrl" class="btn btn-xs btn-flat btn-info">Detay</a>
+                                <a asp-area="Product" asp-controller="Product" asp-action="Edit" asp-route-Id="@item.Id" asp-route-returnUrl="@returnUrl" class="btn btn-xs btn-flat btn-warning">Düzenle</a>
+                                <a asp-area="Product" asp-controller="Product" asp-action="Delete" asp-route-Id="@item.Id" asp-route-returnUrl="@returnUrl" class="btn btn-xs btn-flat btn-danger">Sil</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

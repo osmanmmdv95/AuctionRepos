@@ -57,59 +57,33 @@ namespace Auction.Application.ProductServices
 
         public async Task<ApplicationResult> Delete(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var willDelete = await _context.Products.FindAsync(id);
+                if (willDelete != null)
+                {
+                    _context.Products.Remove(willDelete);
+                    await _context.SaveChangesAsync();
+                    return new ApplicationResult { Succeeded = true };
+
+                }
+                return new ApplicationResult { Succeeded = false, ErrorMessage = "Bir hata oluştu lütfen kontrol edip tekrar deneyiniz" };
+            }
+            catch (Exception e)
+            {
+                return new ApplicationResult { Succeeded = false, ErrorMessage = e.Message };
+            }
         }
 
         public async Task<ApplicationResult<ProductDto>> Get(Guid id)
         {
             try
             {
-                var joinList = await (from product in _context.Products
-                                      join brand in _context.Brands on product.ProductBrandId equals brand.Id
-                                      join city in _context.Cities on product.CityId equals city.Id
-                                      select new
-                                      {
-                                          brand.BrandName,
-                                          city.CityName,
-                                          product.Id,
-                                          product.ProductBrandId,
-                                          product.CityId,
-                                          product.ProductDetail,
-                                          product.ProductFuelType,
-                                          product.ProductGearType,
-                                          product.ProductImageUrl,
-                                          product.ProductIsActive,
-                                          product.ActiveDateTime,
-                                          product.ProductPrice,
-                                          product.ProductYear,
-                                          product.ProductName,
-                                          product.ProductKm
-                                      }).ToListAsync();
+                var product = await _context.Products.Include(b => b.Brand).Include(c => c.City).FirstOrDefaultAsync(x => x.Id == id);
 
-                var selectProduct = joinList.Where(x => x.Id == id).FirstOrDefault();
-
-                //var mapProduct = _mapper.Map<ProductDto>(joinList);
-
-                ProductDto mapProduct = new ProductDto();
-                mapProduct = new ProductDto
-                {
-                    BrandName = selectProduct.BrandName,
-                    CityName = selectProduct.CityName,
-                    Id = selectProduct.Id,
-                    ProductBrandId = selectProduct.ProductBrandId,
-                    CityId = selectProduct.CityId,
-                    ProductDetail = selectProduct.ProductDetail,
-                    ProductFuelType = selectProduct.ProductFuelType,
-                    ProductGearType = selectProduct.ProductGearType,
-                    ProductImageUrl = selectProduct.ProductImageUrl,
-                    ProductIsActive = selectProduct.ProductIsActive,
-                    ActiveDateTime = selectProduct.ActiveDateTime,
-                    ProductPrice = selectProduct.ProductPrice,
-                    ProductYear = selectProduct.ProductYear,
-                    ProductName = selectProduct.ProductName,
-                    ProductKm = selectProduct.ProductKm
-
-                };
+                var mapProduct = _mapper.Map<ProductDto>(product);
+                mapProduct.BrandName = product.Brand.BrandName;
+                mapProduct.CityName = product.City.CityName;
 
                 return new ApplicationResult<ProductDto>
                 {
@@ -132,59 +106,23 @@ namespace Auction.Application.ProductServices
         {
             try
             {
-                var joinList = await (from product in _context.Products
-                                      join brand in _context.Brands on product.ProductBrandId equals brand.Id
-                                      join city in _context.Cities on product.CityId equals city.Id
-                                      select new
-                                      {
-                                          brand.BrandName,
-                                          city.CityName,
-                                          product.Id,
-                                          product.ProductBrandId,
-                                          product.CityId,
-                                          product.ProductDetail,
-                                          product.ProductFuelType,
-                                          product.ProductGearType,
-                                          product.ProductImageUrl,
-                                          product.ProductIsActive,
-                                          product.ActiveDateTime,
-                                          product.ProductPrice,
-                                          product.ProductYear,
-                                          product.ProductName,
-                                          product.ProductKm
-                                      }).ToListAsync();
+                var listProduct = await _context.Products.Include(b => b.Brand).Include(c => c.City).ToListAsync();
 
-                List<ProductDto> productList = new List<ProductDto>();
-                foreach (var item in joinList)
+                List<ProductDto> mapProduct = _mapper.Map<List<ProductDto>>(listProduct);
+
+                int i = 0;
+                foreach (var item in mapProduct)
                 {
-                    ProductDto mapProduct = new ProductDto
-                    {
-                        BrandName = item.BrandName,
-                        CityName = item.CityName,
-                        Id = item.Id,
-                        ProductBrandId = item.ProductBrandId,
-                        CityId = item.CityId,
-                        ProductDetail = item.ProductDetail,
-                        ProductFuelType = item.ProductFuelType,
-                        ProductGearType = item.ProductGearType,
-                        ProductImageUrl = item.ProductImageUrl,
-                        ProductIsActive = item.ProductIsActive,
-                        ActiveDateTime = item.ActiveDateTime,
-                        ProductPrice = item.ProductPrice,
-                        ProductYear = item.ProductYear,
-                        ProductName = item.ProductName,
-                        ProductKm = item.ProductKm
-
-                    };
-                    productList.Add(mapProduct);
+                    item.CityName = listProduct[i].City.CityName;
+                    item.BrandName = listProduct[i].Brand.BrandName;
+                    i++;
                 }
 
-                //List<ProductDto> productList = _mapper.Map<List<ProductDto>>(joinList);
 
                 return new ApplicationResult<List<ProductDto>>
                 {
                     Succeeded = true,
-                    Result = productList
+                    Result = mapProduct
                 };
             }
             catch (Exception e)
@@ -200,7 +138,71 @@ namespace Auction.Application.ProductServices
 
         public async Task<ApplicationResult<ProductDto>> Update(UpdateProductViewModel model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var willUpdate = await _context.Products.FindAsync(model.Id);
+                if (willUpdate != null)
+                {
+                    var modifierUser = await _userManager.FindByIdAsync(model.ModifiedById);
+                    willUpdate.ModifiedBy = modifierUser.UserName;
+                    _mapper.Map(model, willUpdate);
+                    _context.Products.Update(willUpdate);
+                    await _context.SaveChangesAsync();
+                    return new ApplicationResult<ProductDto>
+                    {
+                        Succeeded = true,
+
+                    };
+                }
+
+                return new ApplicationResult<ProductDto> { Succeeded = false, ErrorMessage = "Bir hata oluştu lütfen kontrol edip tekrar deneyiniz" };
+            }
+            catch (Exception e)
+            {
+                return new ApplicationResult<ProductDto>
+                {
+                    Result = new ProductDto(),
+                    Succeeded = false,
+                    ErrorMessage = e.Message
+                };
+            }
+            return new ApplicationResult<ProductDto>();
         }
+
+
+        public async Task<ApplicationResult<List<ProductDto>>> GetAllById(string CreatedById)
+        {
+            try
+            {
+                var listProduct = await _context.Products.Where(x=>x.CreatedById == CreatedById).Include(b => b.Brand).Include(c => c.City).ToListAsync();
+
+                List<ProductDto> mapProduct = _mapper.Map<List<ProductDto>>(listProduct);
+
+                int i = 0;
+                foreach (var item in mapProduct)
+                {
+                    item.CityName = listProduct[i].City.CityName;
+                    item.BrandName = listProduct[i].Brand.BrandName;
+                    i++;
+                }
+
+
+                return new ApplicationResult<List<ProductDto>>
+                {
+                    Succeeded = true,
+                    Result = mapProduct
+                };
+            }
+            catch (Exception e)
+            {
+                return new ApplicationResult<List<ProductDto>>
+                {
+                    Succeeded = false,
+                    ErrorMessage = e.Message,
+                    Result = new List<ProductDto>()
+                };
+            }
+        }
+
     }
 }

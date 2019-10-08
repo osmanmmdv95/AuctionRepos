@@ -42,6 +42,7 @@
     <Folder Include="Areas\SubCategory\Data\" />
     <Folder Include="Areas\SubCategory\Models\" />
     <Folder Include="Scripts\" />
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 

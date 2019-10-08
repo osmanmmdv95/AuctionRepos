@@ -50,14 +50,11 @@
                             @Html.DisplayFor(modelItem => item.Email)
                         </td>
 
-
                         <td>
                             <a asp-controller="Manage" asp-action="AssignRole" class="btn btn-xs btn-flat btn-success" asp-route-id="@item.Id">Rol ata</a>
                             <a asp-controller="Manage" asp-action="RevokeRole" class="btn btn-xs btn-flat btn-warning" asp-route-id="@item.Id">Rolden çıkar</a>
                             <a asp-controller="Manage" asp-action="UserDetail" class="btn btn-xs btn-flat btn-info" asp-route-id="@item.Id">Detay</a>
                             <a asp-controller="Manage" asp-action="DeleteUser" class="btn btn-xs btn-flat btn-danger" asp-route-id="@item.Id">Sil</a>
-
-
                         </td>
                     </tr>
                 }

@@ -1,18 +1,16 @@
 ﻿@model Auction.Application.ProductServices.ProductDto
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Delete";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
- 
 }
 
+<h2>@Model.ProductName Sil</h2>
 
-<div class="box">
-    <div class="box-header with-border">
-        <h3 class="box-title">@Model.ProductName Detayları</h3>
-    </div>
-
-    <div class="box-body">
+<h3>Bu ürünü silmek istediğinize emin misiniz?</h3>
+<hr />
+<form asp-area="Product" asp-action="Delete">
+    <div>
         <dl class="dl-horizontal">
             <dt>
                 @Html.DisplayNameFor(model => model.ProductName)
@@ -153,16 +151,12 @@
             <dd>
                 @Html.DisplayFor(model => model.ModifiedById)
             </dd>
-        </dl>
-        <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+        </dl><input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+    </div>
+    <div class="form-group">
         <div>
-          
-                @*<a asp-area="Product" asp-controller="Product" asp-action="Edit" asp-route-Id="@Model.Id" class="btn btn-xs btn-flat btn-warning">Düzenle</a>*@
-     
-            <h4><a href="@ViewBag.ReturnUrl">Geri dön</a></h4>
-
+            <input type="submit" value="Sil" class="btn btn-sm btn-flat btn-danger" /> |
+            <a href="@ViewBag.ReturnUrl">Geri dön</a>
         </div>
     </div>
-</div>
-
-
+</form>

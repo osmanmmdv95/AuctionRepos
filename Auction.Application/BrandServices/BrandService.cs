@@ -134,6 +134,8 @@ namespace Auction.Application.BrandServices
                     listBrand.Add(mapBrand);
                 }
 
+                //var listBrand = await _context.Brands.Include(x => x.SubCategory).ToListAsync();
+
                 return new ApplicationResult<List<BrandDto>>
                 {
                     Succeeded = true,
@@ -217,7 +219,7 @@ namespace Auction.Application.BrandServices
                         ErrorMessage = "Böyle bir Marka bulunamadı!"
                     };
                 }
-                var modifierUser = await _userManager.FindByIdAsync(model.ModifiedById);
+                var modifierUser = await _userManager.FindByIdAsync(model.CreatedById);
                 getExistBrand.ModifiedBy = modifierUser.UserName;
                 _mapper.Map(model, getExistBrand);
                 _context.Update(getExistBrand);
