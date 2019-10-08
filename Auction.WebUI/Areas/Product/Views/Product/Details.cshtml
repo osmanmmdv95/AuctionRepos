@@ -152,10 +152,10 @@
                 @Html.DisplayFor(model => model.ModifiedById)
             </dd>
         </dl>
-
+        <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
         <div>
             <a asp-area="Product" asp-controller="Product" asp-action="Edit" asp-route-Id="@Model.Id" class="btn btn-xs btn-flat btn-warning">Düzenle</a> |
-            <a asp-action="Index">Listeye dön</a>
+            <h4><a href="@ViewBag.ReturnUrl">Geri dön</a></h4>
         </div>
     </div>
 </div>

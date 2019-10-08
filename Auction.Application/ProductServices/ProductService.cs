@@ -168,5 +168,41 @@ namespace Auction.Application.ProductServices
             }
             return new ApplicationResult<ProductDto>();
         }
+
+
+        public async Task<ApplicationResult<List<ProductDto>>> GetAllById(string CreatedById)
+        {
+            try
+            {
+                var listProduct = await _context.Products.Where(x=>x.CreatedById == CreatedById).Include(b => b.Brand).Include(c => c.City).ToListAsync();
+
+                List<ProductDto> mapProduct = _mapper.Map<List<ProductDto>>(listProduct);
+
+                int i = 0;
+                foreach (var item in mapProduct)
+                {
+                    item.CityName = listProduct[i].City.CityName;
+                    item.BrandName = listProduct[i].Brand.BrandName;
+                    i++;
+                }
+
+
+                return new ApplicationResult<List<ProductDto>>
+                {
+                    Succeeded = true,
+                    Result = mapProduct
+                };
+            }
+            catch (Exception e)
+            {
+                return new ApplicationResult<List<ProductDto>>
+                {
+                    Succeeded = false,
+                    ErrorMessage = e.Message,
+                    Result = new List<ProductDto>()
+                };
+            }
+        }
+
     }
 }

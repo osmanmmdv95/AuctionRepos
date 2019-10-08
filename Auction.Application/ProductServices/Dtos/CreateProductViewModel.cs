@@ -19,8 +19,6 @@ namespace Auction.Application.ProductServices
 
         [DisplayName("Ürün Yılı")]
         [Required(ErrorMessage = "Ürün yılı zorunludur!")]
-        [StringLength(4, ErrorMessage ="{0} {1} haneli rakam olabilir!",MinimumLength =4)]
-
         public int? ProductYear { get; set; }
 
         [DisplayName("Km")]
@@ -40,7 +38,6 @@ namespace Auction.Application.ProductServices
         public string ProductFuelType { get; set; }
 
         [DisplayName("Ürün Fotoğrafı")]
-        [Required(ErrorMessage = "Lütfen ürün fotoğrafı ekleyiniz.")]
         public string ProductImageUrl { get; set; }
 
         [DisplayName("Ürün Detayları")]

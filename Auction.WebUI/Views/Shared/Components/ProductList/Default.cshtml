@@ -5,20 +5,16 @@
     {
         <div class="col-md-4">
             <div class="box box-widget widget-user" style="border:1px solid #d3d3d3">
-                <img src="https://www.halliwelljones.co.uk/uploads/bmw/x5-models-xline-1920x1080.jpeg" class="card-img-top" width="348" />
+
+                <img src="@item.ProductImageUrl" class="card-img-top" width="348" height="200" />
                 <div class="box-footer" style="padding-top:5px" id="footer-info">
                     <p style="text-align:center; font-size:20px">@item.BrandName.ToUpper() &nbsp; <strong style="margin-top:0px; font-weight:bold"> @item.ProductName.ToUpper()</strong></p>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="description-block">
                                 <span class="description-text" style="font-size:15px">@item.ProductYear</span> &nbsp; &bull; &nbsp;
-                                @*@{
-                                    var km = item.ProductKm.ToString().Replace(",", ".");
-                                    var klm = km.Substring(km.IndexOf(".") + 3, 3);
-                                    var productKm = km.Substring(0, km.IndexOf(".")) + "." + klm + " KM";
-                                }*@
                                 <span class="description-text" style="font-size:15px;">@item.ProductKm</span> &nbsp; &bull; &nbsp;
-                                <span class="description-text" style="font-size:15px;">99 EA 999</span> &nbsp; &bull; &nbsp;
+                                @*<span class="description-text" style="font-size:15px;">99 EA 999</span> &nbsp; &bull; &nbsp;*@
                                 <span class="description-text" style="font-size:15px;">@item.CityName</span>
                             </div>
                         </div>
@@ -34,11 +30,6 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="description-block" style="margin-top:5px">
-                                @*@{
-                                    var price = item.ProductPrice.ToString().Replace(",", ".");
-                                    var prc = km.Substring(km.IndexOf(".") + 3, 3);
-                                    var productPrice = km.Substring(0, price.IndexOf(".")) + "." + prc + "";
-                                }*@
                                 <div class="row">
                                     <div class="col-md-6"><h2 style="margin-top:0px" class="description-text"><p id="countdown" style="margin-bottom:0px">10 50 45</p> <p style="font-size:14px; color:gray">SA &emsp; DK &emsp; SN</p> </h2></div>
                                     <div class="col-md-6"><h2 style="color:lightgreen; margin-top:0px" class="description-text">1000 <p style="font-size:12px; color:gray">TL / AÇILIŞ FIYATI</p> </h2></div>
@@ -47,7 +38,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12" id="incele" style="position:absolute; bottom:0px; padding-bottom:5px; padding-top:5px; 
+                    <div class="col-md-12" id="incele" style="position:absolute; bottom:0px; padding-bottom:5px; padding-top:5px;
                                                 left:0px; display:none; background-color:#000000; opacity:0.7">
                         <button class="btn btn-link btn-block text-light"> <i class="fa fa-search"></i> INCELE</button>
                     </div>

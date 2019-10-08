@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
@@ -23,6 +24,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 
 namespace Auction.WebUI
 {
@@ -74,7 +76,17 @@ namespace Auction.WebUI
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
             /****************MAPPER*****************************/
-      
+
+
+
+            /****************FİLE PROVİDER*****************************/
+            services.AddSingleton<IFileProvider>(new PhysicalFileProvider(
+            Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images")
+            )
+            );
+            /****************FİLE PROVİDER*****************************/
+
+
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
            .AddEntityFrameworkStores<ApplicationUserDbContext>();

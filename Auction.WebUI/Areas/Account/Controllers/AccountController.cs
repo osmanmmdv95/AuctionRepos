@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Auction.WebUI.Areas.Account.Controllers
 {
     [Area("Account")]
-   public class AccountController : Controller
+    public class AccountController : Controller
     {
         // Kullanici kaydetmek icin veya kullanici bilgilerinde degisiklik yapmak icin kullanilan servis.
         private readonly UserManager<ApplicationUser> _userManager;
@@ -45,7 +45,7 @@ namespace Auction.WebUI.Areas.Account.Controllers
                 var existUser = await _userManager.FindByEmailAsync(model.Username);
 
                 //LoginPartial'a Kullanıcının ad ve soyadını yazdırabilmek için ekledim!
-                
+
 
                 // yoksa hata don
                 if (existUser == null)
@@ -68,7 +68,7 @@ namespace Auction.WebUI.Areas.Account.Controllers
                     return Redirect(returnUrl);
 
                 //LoginPartial'a Kullanıcının ad ve soyadını yazdırabilmek için ekledim!
-                var t = await _userManager.AddClaimAsync(existUser, new Claim("FullName", existUser.FirstName + " " + existUser.LastName));
+                await _userManager.AddClaimAsync(existUser, new Claim("FullName", existUser.FirstName + " " + existUser.LastName));
                 TempData["FullName"] = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(existUser.FirstName + " " + existUser.LastName);
 
                 return RedirectToAction("Index", "Home");

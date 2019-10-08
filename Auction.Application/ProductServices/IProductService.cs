@@ -12,5 +12,6 @@ namespace Auction.Application.ProductServices
         Task<ApplicationResult<ProductDto>> Create(CreateProductViewModel model);
         Task<ApplicationResult<ProductDto>> Update(UpdateProductViewModel model);
         Task<ApplicationResult> Delete(Guid id);
+        Task<ApplicationResult<List<ProductDto>>> GetAllById(string id);
     }
 }

@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Auction.WebUI.Models;
 using Auction.Application.ProductServices;
+using System.Security.Claims;
 
 namespace Auction.WebUI.Controllers
 {
     public class HomeController : Controller
     {
-        
+        private readonly IProductService _productService;
+        public HomeController(IProductService productService)
+        {
+            _productService = productService;
+        }
         public IActionResult Index()
         {
             return View();
@@ -28,9 +33,12 @@ namespace Auction.WebUI.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        public IActionResult Profile()
+
+        public async Task<IActionResult> Profile(string CreatedById)
         {
-            return View();
+            CreatedById = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var getAllService = await _productService.GetAllById(CreatedById);
+            return View(getAllService.Result);
         }
     }
 }
