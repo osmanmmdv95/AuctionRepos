@@ -18,7 +18,7 @@ using Microsoft.Extensions.FileProviders;
 
 namespace Auction.WebUI.Areas.Product.Controllers
 {
-
+   
     [Area("Product")]
     public class ProductController : Controller
     {

@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+
 <div class="box">
     <div class="box-header with-border">
         <h3 class="box-title">@Model.ProductName Düzenle</h3>
@@ -103,8 +104,6 @@
         </form>
     </div>
 </div>
-
-
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
