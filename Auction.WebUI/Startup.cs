@@ -47,6 +47,13 @@ namespace Auction.WebUI
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            /**********************PWA FORM*****************************/
+            // This method gets called by the runtime. Use this method to add services to the container.
+                services.AddMvc();
+                services.AddProgressiveWebApp();
+            //services.AddSingleton(typeof(IHttpContextAccessor), typeof(HttpContextAccessor));
+            /**********************PWA FORM*****************************/
+
 
             /**********************CONNECTION STRING*****************************/
             services.AddDbContext<ApplicationUserDbContext>(options =>

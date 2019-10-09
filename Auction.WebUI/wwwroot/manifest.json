@@ -1,0 +1,47 @@
+{
+  "short_name": "Auction",
+  "name": "auction.net",
+  "icons": [
+    {
+      "src": "/images/auc.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "density": "0.75"
+    },
+    {
+      "src": "/images/auc.png",
+      "type": "image/png",
+      "sizes": "144x144",
+      "density": "1"
+    },
+    {
+      "src": "/images/auc.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "density": "1.5"
+    },
+
+    {
+      "src": "/images/auc.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "density": "2.0"
+    },
+    {
+      "src": "/images/auc.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "density": "3.0"
+    },
+    {
+      "src": "/images/auc.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "density": "4.0"
+    }
+  ],
+  "start_url": "/",
+  "theme_color": "#80d4ff",
+  "background_color": "#80d4ff",
+  "display": "standalone"
+}
