@@ -15,6 +15,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
     <PackageReference Include="MySql.Data" Version="8.0.17" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.2.0" />
+    <PackageReference Include="WebEssentials.AspNetCore.PWA" Version="1.0.59" />
   </ItemGroup>
 
 
@@ -42,7 +43,6 @@
     <Folder Include="Areas\SubCategory\Data\" />
     <Folder Include="Areas\SubCategory\Models\" />
     <Folder Include="Scripts\" />
-    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 
