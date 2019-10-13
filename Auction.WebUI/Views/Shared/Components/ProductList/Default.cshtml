@@ -8,7 +8,7 @@
 <div class="row">
     @foreach (var item in Model)
     {
-        <div class="col-md-4 col-sm-5 col-xs-7 col-lg-4">
+        <div class="col-md-4 col-sm-5 col-xs-12 col-lg-4">
             <div class="box box-widget widget-user" style="border:1px solid #d3d3d3">
                 <img src="@item.ProductImageUrl" class="img-responsive" style="height:250px"/>
 
@@ -46,7 +46,11 @@
                     <div class="col-md-12" id="incele-@item.Id" style="position:absolute; bottom:0px; padding-bottom:5px; padding-top:5px;
                                                 left:0px; display:none; background-color:#000000; opacity:0.7">
                         @*asp-area="Product" asp-controller="Product" asp-action="Details" asp-route-Id="@item.Id" asp-route-returnUrl="@returnUrl"*@
-                        <a data-toggle="modal" data-target="@String.Concat("#product_view", item.Id)" class="btn btn-link btn-block text-light"><i class="fa fa-search"></i>İNCELE</a>
+                        <div class="row">
+                            <a data-toggle="modal" data-target="@String.Concat("#product_view", item.Id)" class="btn btn-link col-md-6 text-white" style="color:white"><i class="fa fa-search" style="margin-right:5px; color:white"></i>İNCELE</a>
+
+                            <a data-toggle="modal" data-target="" class="btn btn-link col-md-6" style="color:white"><i class="fa fa-gavel" style="margin-right:5px; color:white"></i>ARRTIRMA</a>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,8 +1,101 @@
-﻿@model IEnumerable<Auction.Application.ProductServices.ProductDto>
-
+﻿@model Auction.Application.CategoryServices.Dtos.CategoryDto
 @{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title">Arama</h3>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-11 col-sm-11">
+                <div class="form-group col-lg-3 col-sm-5 col-md-3">
+                    <label>Aradığınız Ürün</label>
+                    <select id="category" onchange="CategorySelect();" class="form-control select2" asp-items="ViewBag.Category">
+                        <option selected disabled>Ürün Seçiniz</option>
+                    </select>
+                </div>
+                <div class="form-group col-lg-3 col-sm-5 col-md-3">
+                    <label>Aradığınız Ürün</label>
+                    <select id="subCategory" onchange="SubCategorySelect();" class="form-control select2">
+                        
+                    </select>
+                </div>
+                <div class="form-group col-lg-3 col-sm-5 col-md-3">
+                    <label>Aradığınız Ürün</label>
+                    <select id="Brand" class="form-control select2">
+
+                    </select>
+                </div>
+                <div class="form-group col-lg-3 col-sm-5 col-md-3">
+                    <label>Aradığınız Ürün</label>
+                    <select id="Product" class="form-control select2">
+                        <option>1</option>
+                        <option>1</option>
+                        <option>1</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-1 col-sm-2">
+                <div class="form-group align-middle col-sm-4">
+                    <button class="btn btn-success btn-block">Arama</button>
+                </div>
+            </div>
+            <div class="col-md-12">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function CategorySelect() {
+        var categoryId = $("#category").val();
+        $("#subCategory").children().remove().end().append("<option selected disabled>Category Seç</option>");
+        $("#Brand").children().remove().end().append("<option selected disabled>Brand Seç</option>");
+
+        jsonString = JSON.stringify({
+            id: categoryId,
+        });
+
+        $.ajax({
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            url: "/Home/GetSubCategory",
+            'processData': false,
+            data: jsonString,
+            success: function (data) {
+                console.log(data);
+                $("#subCategory").append("<option value='" + data.id + "'>" + data.name + "</option>");
+            }
+        });
+    }
+
+    function SubCategorySelect() {
+        var subCategoryId = $("#subCategory").val();
+        $("#Brand").children().remove().end().append("<option selected disabled>Brand Seç</option>");
+
+        jsonString = JSON.stringify({
+            id: subCategoryId,
+        });
+
+        $.ajax({
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            url: "/Home/GetBrand",
+            'processData': false,
+            data: jsonString,
+            success: function (data) {
+                console.log(data);
+                $("#Brand").append("<option value='" + data.id + "'>" + data.name + "</option>");
+            }
+        });
+    }
+</script>
+
 @await Component.InvokeAsync("ProductList")
 

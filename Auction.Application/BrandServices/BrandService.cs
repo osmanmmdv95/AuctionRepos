@@ -88,6 +88,38 @@ namespace Auction.Application.BrandServices
             }
         }
 
+        public async Task<ApplicationResult<BrandDto>> GetBrand(Guid id)
+        {
+            try
+            {
+                var brand = await _context.Brands.ToListAsync();
+                var getBrand = brand.Where(x => x.SubCategoryId == id).FirstOrDefault();
+
+                BrandDto mapSubCategory = new BrandDto();
+
+                mapSubCategory = new BrandDto
+                {
+                    Id = getBrand.Id,
+                    SubCategoryName = getBrand.BrandName,
+                };
+
+                return new ApplicationResult<BrandDto>
+                {
+                    Result = mapSubCategory,
+                    Succeeded = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new ApplicationResult<BrandDto>
+                {
+                    Result = new BrandDto(),
+                    Succeeded = false,
+                    ErrorMessage = e.Message
+                };
+            }
+        }
+
         public async Task<ApplicationResult<List<BrandDto>>> GetAll()
         {
             try

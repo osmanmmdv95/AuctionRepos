@@ -88,6 +88,39 @@ namespace Auction.Application.SubCategoryServices
                 };
             }
         }
+
+        public async Task<ApplicationResult<SubCategoryDto>> GetSubCategory(Guid id)
+        {
+            try
+            {
+                var subCategory = await _context.SubCategories.ToListAsync();
+                var subCat = subCategory.Where(x => x.CategoryId == id).FirstOrDefault();
+
+                SubCategoryDto mapSubCategory = new SubCategoryDto();
+
+                mapSubCategory = new SubCategoryDto
+                {
+                    Id = subCat.Id,
+                    CategoryName = subCat.SubCategoryName,
+                };
+
+                return new ApplicationResult<SubCategoryDto>
+                {
+                    Result = mapSubCategory,
+                    Succeeded = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new ApplicationResult<SubCategoryDto>
+                {
+                    Result = new SubCategoryDto(),
+                    Succeeded = false,
+                    ErrorMessage = e.Message
+                };
+            }
+        }
+
         public async Task<ApplicationResult<List<SubCategoryDto>>> GetAll()
         {
             try
