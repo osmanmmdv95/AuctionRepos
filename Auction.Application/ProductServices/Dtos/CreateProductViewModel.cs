@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
-using Auction.Domain.Category;
 
-namespace Auction.Application.ProductServices
+
+namespace Auction.Application.ProductServices.Dtos
 {
     public class CreateProductViewModel
     {

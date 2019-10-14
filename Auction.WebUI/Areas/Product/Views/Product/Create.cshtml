@@ -1,4 +1,4 @@
-﻿@model Auction.Application.ProductServices.CreateProductViewModel
+﻿@model Auction.Application.ProductServices.Dtos.CreateProductViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12">
                     <div class="row">
-                        <div class="form-group col-lg-6 col-sm-6">
+                        <div class="form-group col-lg-4 col-sm-4">
                             <label asp-for="ProductName" class="control-label"></label>
                             <input asp-for="ProductName" class="form-control" />
                             <span asp-validation-for="ProductName" class="text-danger"></span>

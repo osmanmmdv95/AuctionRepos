@@ -6,8 +6,11 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Auction.Application;
 using Auction.Application.BrandServices;
+using Auction.Application.BrandServices.Dtos;
 using Auction.Application.CityService;
 using Auction.Application.ProductServices;
+using Auction.Application.ProductServices.Dtos;
+using Auction.Application.Shared;
 using Auction.Application.SubCategoryServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -18,7 +21,7 @@ using Microsoft.Extensions.FileProviders;
 
 namespace Auction.WebUI.Areas.Product.Controllers
 {
-   
+
     [Area("Product")]
     public class ProductController : Controller
     {
@@ -295,6 +298,42 @@ namespace Auction.WebUI.Areas.Product.Controllers
 
             return View(errorReturnModel);
         }
+        #endregion
+
+
+
+        #region GetByFilter
+
+
+
+        public async Task<IActionResult> GetByFilter(FilterViewModel model)
+        {
+            var category = await _categoryService.GetAll();
+            ViewBag.Category = category.Result.Select(c => new SelectListItem
+            {
+                Selected = false,
+                Text = c.CategoryName,
+                Value = c.Id.ToString()
+            }).ToList();
+
+            FilterViewModel filterViewModel = new FilterViewModel()
+            {
+                BrandName = model.BrandName,
+                Brand = model.Brand,
+                ProductBrandId = model.ProductBrandId,
+                SubCategoryName = model.SubCategoryName,
+                SubCategory = model.SubCategory,
+                SubCategoryId = model.SubCategoryId,
+                Category = model.Category,
+                CategoryName = model.CategoryName,
+                CategoryId = model.CategoryId
+            };
+
+            //var getService = await _productService.GetByFilter(filterViewModel);
+            return View(filterViewModel);
+        }
+
+
         #endregion
     }
 }

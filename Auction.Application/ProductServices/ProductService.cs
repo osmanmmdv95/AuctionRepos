@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Auction.Application.ProductServices.Dtos;
+using Auction.Application.Shared;
+using Auction.Application.SubCategoryServices.Dtos;
+using Auction.Domain.Category;
 using Auction.Domain.Identity;
 using Auction.Domain.Product;
 using Auction.EntityFramework.Context;
@@ -174,7 +178,7 @@ namespace Auction.Application.ProductServices
         {
             try
             {
-                var listProduct = await _context.Products.Where(x=>x.CreatedById == CreatedById).Include(b => b.Brand).Include(c => c.City).ToListAsync();
+                var listProduct = await _context.Products.Where(x => x.CreatedById == CreatedById).Include(b => b.Brand).Include(c => c.City).ToListAsync();
 
                 List<ProductDto> mapProduct = _mapper.Map<List<ProductDto>>(listProduct);
 
@@ -204,5 +208,74 @@ namespace Auction.Application.ProductServices
             }
         }
 
+        public async Task<ApplicationResult<List<ProductDto>>> GetByFilter(FilterViewModel model)
+        {
+            try
+            {
+                if (model.ProductBrandId != null)
+                {
+                    var getProduct = await _context.Products.Where(x => x.ProductBrandId == model.ProductBrandId).Include(b => b.Brand).Include(c => c.City).ToListAsync();
+                    
+                    return new ApplicationResult<List<ProductDto>>
+                    {
+                        Succeeded = true,
+                        Result = AddProductProps(getProduct)
+                    };
+                }
+                else
+                {
+                    if (model.SubCategoryId != null)
+                    {
+
+                        List<Product> getProduct = await _context.Products.Where(x => x.ProductBrandId == model.SubCategoryId).Include(b => b.Brand).Include(c => c.City).ToListAsync();
+                        return new ApplicationResult<List<ProductDto>>
+                        {
+                            Succeeded = true,
+                            Result = AddProductProps(getProduct)
+                        };
+
+
+                    }
+                    else
+                    {
+                        var getProduct = await _context.Products.Where(x => x.Brand.SubCategory.CategoryId == model.CategoryId).Include(b => b.Brand).Include(c => c.City).ToListAsync();
+                        return new ApplicationResult<List<ProductDto>>
+                        {
+                            Succeeded = true,
+                            Result = AddProductProps(getProduct)
+                        };
+
+                    }
+
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                return new ApplicationResult<List<ProductDto>>
+                {
+                    Succeeded = false,
+                    ErrorMessage = e.Message,
+                    Result = new List<ProductDto>()
+                };
+            }
+        }
+
+
+        private List<ProductDto> AddProductProps(List<Product> getProduct)
+        {
+            List<ProductDto> mapProduct = _mapper.Map<List<ProductDto>>(getProduct);
+            int i = 0;
+            foreach (var item in mapProduct)
+            {
+                item.CityName = getProduct[i].City.CityName;
+                item.BrandName = getProduct[i].Brand.BrandName;
+                i++;
+            }
+            return mapProduct;
+
+         
+        }
     }
 }

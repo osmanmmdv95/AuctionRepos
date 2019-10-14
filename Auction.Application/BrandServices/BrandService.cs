@@ -88,34 +88,48 @@ namespace Auction.Application.BrandServices
             }
         }
 
-        public async Task<ApplicationResult<BrandDto>> GetBrand(Guid id)
+        public async Task<ApplicationResult<List<BrandDto>>> GetBrand(Guid id)
         {
             try
             {
-                var brand = await _context.Brands.ToListAsync();
-                var getBrand = brand.Where(x => x.SubCategoryId == id).FirstOrDefault();
 
-                BrandDto mapSubCategory = new BrandDto();
+                var brandList = await _context.Brands.Where(x => x.SubCategoryId == id).Include(c => c.SubCategory).ToListAsync();
 
-                mapSubCategory = new BrandDto
+                List<BrandDto> listBrand = new List<BrandDto>();
+                foreach (var item in brandList)
                 {
-                    Id = getBrand.Id,
-                    SubCategoryName = getBrand.BrandName,
-                };
+                    BrandDto mapBrand = new BrandDto
+                    {
+                        Id = item.Id,
+                        SubCategoryId = item.SubCategoryId,
+                        SubCategoryName = item.SubCategory.SubCategoryName,
+                        BrandName = item.BrandName,
+                        BrandUrlName = item.BrandUrlName,
+                        CreatedBy = item.CreatedBy,
+                        CreatedById = item.CreatedById,
+                        CreatedDate = item.CreatedDate,
+                        ModifiedBy = item.ModifiedBy,
+                        ModifiedById = item.ModifiedById,
+                        ModifiedDate = item.ModifiedDate
 
-                return new ApplicationResult<BrandDto>
+                    };
+                    listBrand.Add(mapBrand);
+                }
+
+
+                return new ApplicationResult<List<BrandDto>>
                 {
-                    Result = mapSubCategory,
-                    Succeeded = true
+                    Succeeded = true,
+                    Result = listBrand
                 };
             }
             catch (Exception e)
             {
-                return new ApplicationResult<BrandDto>
+                return new ApplicationResult<List<BrandDto>>
                 {
-                    Result = new BrandDto(),
                     Succeeded = false,
-                    ErrorMessage = e.Message
+                    ErrorMessage = e.Message,
+                    Result = new List<BrandDto>()
                 };
             }
         }

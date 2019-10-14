@@ -21,19 +21,19 @@ namespace Auction.WebUI.Controllers
     public class HomeController : Controller
     {
         private readonly IProductService _productService;
-        private readonly ICategoryservice _categoryservice;
+        private readonly ICategoryservice _categoryService;
         private readonly ISubCategoryService _subCategoryService;
         private readonly IBrandService _brandService;
-        public HomeController(IProductService productService, ICategoryservice categoryservice, ISubCategoryService subCategoryService, IBrandService brandService)
+        public HomeController(IProductService productService, ICategoryservice categoryService, ISubCategoryService subCategoryService, IBrandService brandService)
         {
             _productService = productService;
-            _categoryservice = categoryservice;
+            _categoryService = categoryService;
             _subCategoryService = subCategoryService;
             _brandService = brandService;
         }
         public async Task<IActionResult> Index()
         {
-            var category = await _categoryservice.GetAll();
+            var category = await _categoryService.GetAll();
             ViewBag.Category = category.Result.Select(c => new SelectListItem
             {
                 Selected = false,
@@ -43,40 +43,20 @@ namespace Auction.WebUI.Controllers
             return View();
         }
 
+
         public async Task<JsonResult> GetSubCategory([FromBody] CategoryDto Category)
         {
-            try
-            {
                 var subCategory = await _subCategoryService.GetSubCategory(Category.Id);
-                SubCategoryParams categoryParams = new SubCategoryParams
-                {
-                    id = subCategory.Result.Id,
-                    name = subCategory.Result.CategoryName
-                };
-                return Json(categoryParams);
-            }
-            catch (Exception ex)
-            {
-                throw(ex);
-            }
+           
+                return Json(subCategory);
+    
         }
 
         public async Task<JsonResult> GetBrand([FromBody] SubCategoryDto subCategory)
         {
-            try
-            {
-                var brand = await _brandService.GetBrand(subCategory.Id);
-                BrandParams brandParams = new BrandParams
-                {
-                    id = brand.Result.Id,
-                    name = brand.Result.SubCategoryName
-                };
-                return Json(brandParams);
-            }
-            catch (Exception ex)
-            {
-                throw (ex);
-            }
+            var brand = await _brandService.GetBrand(subCategory.Id);
+
+            return Json(brand);
         }
 
         public IActionResult Privacy()
@@ -90,10 +70,10 @@ namespace Auction.WebUI.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public async Task<IActionResult> Profile(string CreatedById)
+        public async Task<IActionResult> Profile(string createdById)
         {
-            CreatedById = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var getAllService = await _productService.GetAllById(CreatedById);
+            createdById = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var getAllService = await _productService.GetAllById(createdById);
             return View(getAllService.Result);
         }
     }

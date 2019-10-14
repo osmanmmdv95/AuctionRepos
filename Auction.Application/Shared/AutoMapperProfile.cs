@@ -6,6 +6,7 @@ using Auction.Application.BrandServices;
 using Auction.Application.BrandServices.Dtos;
 using Auction.Application.CategoryServices.Dtos;
 using Auction.Application.ProductServices;
+using Auction.Application.ProductServices.Dtos;
 using Auction.Application.SubCategoryServices.Dtos;
 using Auction.Domain.Category;
 using Auction.Domain.Product;
@@ -63,7 +64,6 @@ namespace Auction.Application.Shared
                 .ForMember(x => x.ModifiedDate, opt => opt.MapFrom(s => DateTime.UtcNow));
 
 
-
             /****************************BRAND MAPPER***********************************************/
             CreateMap<BrandDto, Brand>();
             CreateMap<Brand, BrandDto>();
@@ -83,6 +83,15 @@ namespace Auction.Application.Shared
                 .ForMember(x => x.ModifiedById, opt => opt.UseDestinationValue())
                 .ForMember(x => x.CreatedDate, opt => opt.UseDestinationValue())
                 .ForMember(x => x.ModifiedDate, opt => opt.MapFrom(s => DateTime.UtcNow));
+
+            CreateMap<List<SubCategory>, BrandDto>()
+                .ForMember(x => x.Id, opt => opt.Ignore())
+                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                .ForMember(x => x.ModifiedBy, opt => opt.Ignore())
+                .ForMember(x => x.ModifiedById, opt => opt.Ignore())
+                .ForMember(x => x.CreatedDate, opt => opt.Ignore())
+                .ForMember(x => x.ModifiedDate, opt => opt.Ignore());
+
 
 
 

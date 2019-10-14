@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Auction.Application.ProductServices
+namespace Auction.Application.ProductServices.Dtos
 {
     public class UpdateProductViewModel : CreateProductViewModel
     {

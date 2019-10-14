@@ -89,34 +89,48 @@ namespace Auction.Application.SubCategoryServices
             }
         }
 
-        public async Task<ApplicationResult<SubCategoryDto>> GetSubCategory(Guid id)
+        public async Task<ApplicationResult<List<SubCategoryDto>>> GetSubCategory(Guid id)
         {
             try
             {
-                var subCategory = await _context.SubCategories.ToListAsync();
-                var subCat = subCategory.Where(x => x.CategoryId == id).FirstOrDefault();
 
-                SubCategoryDto mapSubCategory = new SubCategoryDto();
+                var SubCategoryList = await _context.SubCategories.Where(x => x.CategoryId == id).Include(c => c.Category).ToListAsync();
 
-                mapSubCategory = new SubCategoryDto
+                List<SubCategoryDto> listSubCategory = new List<SubCategoryDto>();
+                foreach (var item in SubCategoryList)
                 {
-                    Id = subCat.Id,
-                    CategoryName = subCat.SubCategoryName,
-                };
+                    SubCategoryDto mapSubCategory = new SubCategoryDto
+                    {
+                        Id = item.Id,
+                        CategoryId = item.CategoryId,
+                        CategoryName = item.Category.CategoryName,
+                        SubCategoryName = item.SubCategoryName,
+                        SubCategoryUrlName = item.SubCategoryUrlName,
+                        CreatedBy = item.CreatedBy,
+                        CreatedById = item.CreatedById,
+                        CreatedDate = item.CreatedDate,
+                        ModifiedBy = item.ModifiedBy,
+                        ModifiedById = item.ModifiedById,
+                        ModifiedDate = item.ModifiedDate
 
-                return new ApplicationResult<SubCategoryDto>
+                    };
+                    listSubCategory.Add(mapSubCategory);
+                }
+
+
+                return new ApplicationResult<List<SubCategoryDto>>
                 {
-                    Result = mapSubCategory,
-                    Succeeded = true
+                    Succeeded = true,
+                    Result = listSubCategory
                 };
             }
             catch (Exception e)
             {
-                return new ApplicationResult<SubCategoryDto>
+                return new ApplicationResult<List<SubCategoryDto>>
                 {
-                    Result = new SubCategoryDto(),
                     Succeeded = false,
-                    ErrorMessage = e.Message
+                    ErrorMessage = e.Message,
+                    Result = new List<SubCategoryDto>()
                 };
             }
         }

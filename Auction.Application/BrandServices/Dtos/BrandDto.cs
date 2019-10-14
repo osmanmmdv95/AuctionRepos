@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Text;
 using Auction.Domain.Category;
 
-namespace Auction.Application.BrandServices
+namespace Auction.Application.BrandServices.Dtos
 {
     public class BrandDto : EntityDto<Guid>
     {
@@ -14,7 +14,6 @@ namespace Auction.Application.BrandServices
         [DisplayName("Marka Url")]
         public string BrandUrlName { get; set; }
 
-
         [DisplayName("Alt Kategori Adı")]
         public string SubCategoryName { get; set; }
 
@@ -23,5 +22,7 @@ namespace Auction.Application.BrandServices
 
         [DisplayName("Alt Kategori")]
         public virtual SubCategory SubCategory { get; set; }
+
+
     }
 }
